@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -68,8 +69,45 @@ class AdminController extends Controller
         }
     }
 
+    /********************** Topic Section **********************/
+
+    public function createTopic()
+    {
+        $subjects = Subject::all();
+        return view('topic.add-topic', compact('subjects'));
+    }
+
+    public function addTopic(Request $request)
+    {
+
+        try {
+            $is_published = false;
+            if ($request->is_published == true) {
+                $is_published = true;
+            }
+            Topic::insert([
+                'topic' => $request->topic,
+                'subject_id' => $request->subject_id,
+                'level' => $request->level,
+                'is_published' => $is_published
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'msg' => 'Topic Added Successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'msg' => $e->getMessage()
+            ]);
+        }
+    }
+
     public function listSubject()
     {
+        $allTopic = Topic::with('subjects')->get();
+        dd($allTopic);
         return view('subject.view_subject_list');
     }
 }

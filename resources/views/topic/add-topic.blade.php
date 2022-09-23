@@ -846,76 +846,75 @@
                 <div class="col-xl-9 mx-auto">
                     <hr />
                     <div class="card border-top border-0 border-4 border-info">
-                        <div class="card-body">
-                            <div class="border p-4 rounded">
-                                <div class="card-title d-flex align-items-center">
-                                    <div>
-                                        <!-- <i class="fadeIn animated bx bx-coin font-22 text-primary"></i> -->
-                                        <i class="fadeIn animated bx bx-book-add font-22 text-info "></i>
+                        <form id="addTopic">
+                            @csrf
+                            <div class="card-body">
+                                <div class="border p-4 rounded">
+                                    <div class="card-title d-flex align-items-center">
+                                        <div>
+                                            <!-- <i class="fadeIn animated bx bx-coin font-22 text-primary"></i> -->
+                                            <i class="fadeIn animated bx bx-book-add font-22 text-info "></i>
+                                        </div>
+                                        <h5 class="mb-0 text-info ms-1"> Add Topic</h5>
                                     </div>
-                                    <h5 class="mb-0 text-info ms-1"> Add Topic</h5>
-                                </div>
-                                <hr />
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Topic Name
-                                    </label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id=""
-                                            placeholder="Enter Topic Name ...">
+                                    <hr />
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Topic Name
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="topic" class="form-control" id="topic"
+                                                placeholder="Enter Topic Name ...">
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label ">Subject
-                                    </label>
-                                    <div class="col-sm-9">
-                                        <select name="" id="" class="py-1 form-control">
-                                            <option value="">subject 1</option>
-                                            <option value="">subject 2</option>
-                                            <option value="">subject 3</option>
-                                            <option value="">subject 4</option>
-                                            <option value="">subject 5</option>
-                                            <option value="">subject 6</option>
-                                            <option value="">subject 7</option>
-                                            <option value="">subject 8</option>
-                                            <option value="">subject 9</option>
-                                            <option value="">subject 10</option>
-                                            <option value="">subject 11</option>
-                                        </select>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-3 col-form-label ">Subject
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select name="subject_id" id="subject_id" class="py-1 form-control">
+                                                <option value="">select subject</option>
+                                                @if (count($subjects) > 0)
+                                                    @foreach ($subjects as $subject)
+                                                        <option value="{{ $subject->id }}">{{ $subject->subject }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label ">Level
-                                    </label>
-                                    <div class="col-sm-9">
-                                        <select name="" id="" class="py-1 form-control">
-                                            <option value="">Easy</option>
-                                            <option value="">Modarate</option>
-                                            <option value="">Hard</option>
-                                        </select>
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label ">Level
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select name="level" id="level" class="py-1 form-control">
+                                                <option value="easy">Easy</option>
+                                                <option value="moderate">Modarate</option>
+                                                <option value="hard">Hard</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3 d-flex align-items-center">
-                                    <label for="inputAddress4" class="col-sm-3 col-form-label">Is Published?</label>
-                                    <div class="col-md-9">
-                                        <input type="checkbox" name="" id="">
+                                    <div class="row mb-3 d-flex align-items-center">
+                                        <label for="inputAddress4" class="col-sm-3 col-form-label">Is Published?</label>
+                                        <div class="col-md-9">
+                                            <input type="checkbox" name="is_published" id="is_published">
+                                        </div>
                                     </div>
-                                </div>
-                                <br>
-                                <div class="row mb-3 ">
+                                    <br>
+                                    <div class="row mb-3 ">
 
-                                    <div class="col-3"></div>
+                                        <div class="col-3"></div>
 
-                                    <div class="col-4">
-                                        <button type="submit" class="btn btn-outline-danger">Reset</button>
-                                    </div>
-                                    <div class="col-4">
-                                        <button type="submit" class="btn btn-outline-success">Save</button>
+                                        <div class="col-4">
+                                            <button type="reset" class="btn btn-outline-danger">Reset</button>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="submit" class="btn btn-outline-success">Save</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <!--end row-->
                     </div>
                 </div>
@@ -944,4 +943,29 @@
             <!--app JS-->
             <script src="{{ asset('assets/js/app.js') }}"></script>
             <script src="{{ asset('assets/js/my.js') }}"></script>
+
+            <script>
+                $(document).ready(function() {
+                    //Add Subject
+                    $("#addTopic").submit(function(e) {
+                        e.preventDefault();
+                        var formData = $(this).serialize();
+                        console.log(formData);
+
+                        $.ajax({
+                            url: "{{ route('addTopic') }}",
+                            type: "POST",
+                            data: formData,
+                            success: function(data) {
+                                console.log(data);
+                                if (data.success == true) {
+                                    location.reload();
+                                } else {
+                                    alert(data.msg);
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
         @endpush

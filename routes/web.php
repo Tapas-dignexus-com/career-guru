@@ -28,9 +28,9 @@ Route::get('/exam-category', function () {
 
 
 //Topic
-Route::get('/add-topic', function () {
-    return view('topic.add-topic');
-});
+// Route::get('/add-topic', function () {
+//     return view('topic.add-topic');
+// });
 Route::get('/view-list-topic', function () {
     return view('topic.view-topic');
 });
@@ -60,8 +60,8 @@ Route::put('/edit-subject', [AdminController::class, 'editSubject'])->name('edit
 Route::delete('/delete-subject', [AdminController::class, 'deleteSubject'])->name('deleteSubject');
 
 //Topic Section
-
-
+Route::get('/add-topic', [AdminController::class, 'createTopic']);
+Route::post('/add-topic', [AdminController::class, 'addTopic'])->name('addTopic');
 
 
 Route::get('/view-subject-list', [AdminController::class, 'listSubject']);
