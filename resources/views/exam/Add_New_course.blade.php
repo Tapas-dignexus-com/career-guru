@@ -440,139 +440,169 @@
             </div>
         </header>
         <!--end header -->
+
+
         <!--start page wrapper -->
         <div class="page-wrapper">
             <div class="page-content">
                 <!--breadcrumb-->
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                    <!-- <div class="breadcrumb-title pe-3">Forms</div> -->
-                    <!-- <div class="ps-3">
-                                  <nav aria-label="breadcrumb">
-                                   <ol class="breadcrumb mb-0 p-0">
-                                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Text Editor</li>
-                                   </ol>
-                                  </nav>
-                                 </div> -->
-                    <!-- <div class="ms-auto">
-                                  <div class="btn-group">
-                                   <button type="button" class="btn btn-primary">Settings</button>
-                                   <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
-                                   </button>
-                                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
-                                    <a class="dropdown-item" href="javascript:;">Another action</a>
-                                    <a class="dropdown-item" href="javascript:;">Something else here</a>
-                                    <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
-                                   </div>
-                                  </div>
-                                 </div> -->
+
                 </div>
                 <!--end breadcrumb-->
                 <div class="card">
                     <div class="card-body">
                         <h6 class="mb-0 text-uppercase">Add New Course</h6>
 
+                        @if (Session::has('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                                @php
+                                    Session::forget('success');
+                                @endphp
+                            </div>
+                        @endif
 
-                        <form method="post" class="mt-3">
-                            <textarea id="mytextarea" name="mytextarea">Hello, World!</textarea>
+                        <form method="POST" enctype="multipart/form-data" class="mt-3"
+                            action="{{ route('addExam') }}">
+                            @csrf
+                            <textarea id="mytextarea" name="exam_name">Hello, World!</textarea>
+                            @if ($errors->has('exam_name'))
+                                <span class="text-danger">{{ $errors->first('exam_name') }}</span>
+                            @endif
                             <div class="row mb-3 mt-3">
                                 <label for="Features " class="col-sm-3 col-form-label">Description</label>
                                 <div class="col-sm-9">
-                                    <textarea name="" id="" cols="20" rows="5"
-                                        class="form-control"placeholder="Description" style="resize: none;"></textarea>
+                                    <textarea name="description" id="" cols="20" rows="5"
+                                        class="form-control"placeholder="Description" style="resize: none;">{{ old('description') }}</textarea>
+                                    @if ($errors->has('description'))
+                                        <span class="text-danger">{{ $errors->first('description') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">Features</label>
                                 <div class="col-sm-9">
-                                    <textarea name="" id="" cols="20" rows="5" class="form-control"placeholder="Features"
-                                        style="resize: none;"></textarea>
+                                    <textarea name="features" id="" cols="20" rows="5" class="form-control"placeholder="Features"
+                                        style="resize: none;">{{ old('features') }}</textarea>
+                                    @if ($errors->has('features'))
+                                        <span class="text-danger">{{ $errors->first('features') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Course Code</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features "
-                                        placeholder="Enter Course Code">
+                                    <input type="text" name="course_code" class="form-control" id="Features "
+                                        placeholder="Enter Course Code" value="{{ old('course_code') }}">
+                                    @if ($errors->has('course_code'))
+                                        <span class="text-danger">{{ $errors->first('course_code') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Catagory</label>
                                 <div class="col-sm-9">
-                                    <select name="" id="" style="width:100%;"class="py-1 form-control">
-                                        <option value="">Catagory-1</option>
-                                        <option value="">Catagory-2</option>
-                                        <option value="">Catagory-3</option>
-                                        <option value="">Catagory-4</option>
-                                        <option value="">Catagory-5</option>
-                                        <option value="">Catagory-6</option>
+                                    <select name="catagory_id" id=""
+                                        style="width:100%;"class="py-1 form-control">
+                                        <option value="">select category</option>
+                                        @if (count($exam_category) > 0)
+                                            @foreach ($exam_category as $exam_cat)
+                                                <option value="{{ $exam_cat->id }}"
+                                                    {{ old('catagory_id') == $exam_cat->id ? 'selected' : '' }}>
+                                                    {{ $exam_cat->name }}
+                                                </option>
+                                            @endforeach
+                                        @endif
                                     </select>
+                                    @if ($errors->has('catagory_id'))
+                                        <span class="text-danger">{{ $errors->first('catagory_id') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Duration</label>
                                 <div class="col-sm-9">
-                                    <select name="" id="" style="width:100%; "
-                                        class="py-1 form-control">
-                                        <option value="">Duration-1</option>
-                                        <option value="">Duration-2</option>
-                                        <option value="">Duration-3</option>
-                                        <option value="">Duration-4</option>
-                                        <option value="">Duration-5</option>
-                                        <option value="">Duration-6</option>
-                                    </select>
+                                    <input type="time" name="duration" id="" value="{{ old('duration') }}">
+                                    @if ($errors->has('duration'))
+                                        <span class="text-danger">{{ $errors->first('duration') }}</span>
+                                    @endif
                                 </div>
                             </div>
 
 
                             <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">
+                                <label for="upload_syllabus " class="col-sm-3 col-form-label">
                                     Upload Syllabus</label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control" id="">
+                                    <input type="file" name="upload_syllabus" value="{{ old('upload_syllabus') }}"
+                                        class="form-control" id="upload_syllabus">
+                                    @if ($errors->has('upload_syllabus'))
+                                        <span class="text-danger">{{ $errors->first('upload_syllabus') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Marks Per Question</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features "
+                                    <input type="number" name="marks_per_question"
+                                        value="{{ old('marks_per_question') }}" class="form-control" id="Features "
                                         placeholder="Marks Per Question">
+                                    @if ($errors->has('marks_per_question'))
+                                        <span class="text-danger">{{ $errors->first('marks_per_question') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Negative Marking Per Question</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features "
+                                    <input type="number" value="{{ old('negative_marking_per_question') }}"
+                                        name="negative_marking_per_question" class="form-control" id="Features "
                                         placeholder="Negative Marking Per Question">
+                                    @if ($errors->has('negative_marking_per_question'))
+                                        <span
+                                            class="text-danger">{{ $errors->first('negative_marking_per_question') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Number Of Questions</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features "
+                                    <input type="number" value="{{ old('number_of_questions') }}"
+                                        name="number_of_questions" class="form-control" id="Features "
                                         placeholder="Number Of Questions">
+                                    @if ($errors->has('number_of_questions'))
+                                        <span class="text-danger">{{ $errors->first('number_of_questions') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Course Fee</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features " placeholder="Course Fee">
+                                    <input type="number" value="{{ old('course_fee') }}" name="course_fee"
+                                        class="form-control" id="Features " placeholder="Course Fee">
+                                    @if ($errors->has('course_fee'))
+                                        <span class="text-danger">{{ $errors->first('course_fee') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Number Of Subjects</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features "
+                                    <input type="number" value="{{ old('number_of_subjects') }}"
+                                        name="number_of_subjects" class="form-control" id="Features "
                                         placeholder="Enter Number Of Subjects">
+                                    @if ($errors->has('number_of_subjects'))
+                                        <span class="text-danger">{{ $errors->first('number_of_subjects') }}</span>
+                                    @endif
                                 </div>
                             </div>
 
@@ -580,69 +610,98 @@
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Discount fee</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features "
-                                        placeholder="Discount fee">
+                                    <input type="number" value="{{ old('discount_fee') }}" name="discount_fee"
+                                        class="form-control" id="Features " placeholder="Discount fee">
+                                    @if ($errors->has('discount_fee'))
+                                        <span class="text-danger">{{ $errors->first('discount_fee') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Registation Fee</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features "
-                                        placeholder="Registation Fee">
+                                    <input type="number" value="{{ old('registation_fee') }}" name="registation_fee"
+                                        class="form-control" id="Features " placeholder="Registation Fee">
+                                    @if ($errors->has('registation_fee'))
+                                        <span class="text-danger">{{ $errors->first('registation_fee') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Exam fee</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features " placeholder="Exam fee">
+                                    <input type="number" value="{{ old('exam_fee') }}" name="exam_fee"
+                                        class="form-control" id="Features " placeholder="Exam fee">
+                                    @if ($errors->has('exam_fee'))
+                                        <span class="text-danger">{{ $errors->first('exam_fee') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Commission</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features " placeholder="Commission">
+                                    <input type="number" value="{{ old('commission') }}" name="commission"
+                                        class="form-control" id="Features " placeholder="Commission">
+                                    @if ($errors->has('commission'))
+                                        <span class="text-danger">{{ $errors->first('commission') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Ratings</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features " placeholder="Ratings">
+                                    <input type="number" value="{{ old('ratings') }}" name="ratings"
+                                        class="form-control" id="Features " placeholder="Ratings">
+                                    @if ($errors->has('ratings'))
+                                        <span class="text-danger">{{ $errors->first('ratings') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Reviews</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="Features " placeholder="Reviews">
+                                    <input type="text" value="{{ old('reviews') }}" name="reviews"
+                                        class="form-control" id="Features " placeholder="Reviews">
+                                    @if ($errors->has('reviews'))
+                                        <span class="text-danger">{{ $errors->first('reviews') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Video Link</label>
                                 <div class="col-sm-9">
-                                    <input type="url" class="form-control" id="Features " placeholder="Video Link">
+                                    <input type="url" value="{{ old('video_link') }}" name="video_link"
+                                        class="form-control" id="Features " placeholder="Video Link">
+                                    @if ($errors->has('video_link'))
+                                        <span class="text-danger">{{ $errors->first('video_link') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">Curriculam</label>
+                                <label for="curriculam " class="col-sm-3 col-form-label">Curriculam</label>
                                 <div class="col-sm-9">
-                                    <textarea name="" id="" cols="20" rows="5" class="form-control"placeholder="Curriculam"
-                                        style="resize: none;"></textarea>
+                                    <textarea name="curriculam" id="" cols="20" rows="5"
+                                        class="form-control"placeholder="Curriculam" style="resize: none;">{{ old('curriculam') }}</textarea>
+                                    @if ($errors->has('curriculam'))
+                                        <span class="text-danger">{{ $errors->first('curriculam') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">Features</label>
+                                <label for="Features " class="col-sm-3 col-form-label">Publish</label>
                                 <div class="col-sm-9">
                                     <label class="form-check-label" for="debit">Yes</label>
-                                    <input id="debit" name="Features" type="radio" class="form-check-input"
-                                        required="">
+                                    <input id="debit" name="publish" type="radio" value="0"
+                                        @if (old('publish')) checked @endif class="form-check-input">
                                     <label class="form-check-label" for="debit">No</label>
-                                    <input id="debit" name="Features" type="radio" class="form-check-input"
-                                        required="">
+                                    <input id="debit" name="publish" type="radio" value="1"
+                                        @if (!old('publish')) checked @endif class="form-check-input">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -650,21 +709,22 @@
                                 <div class="col-sm-9">
 
                                     <label class="form-check-label" for="Status">Active</label>
-                                    <input id="Status" name="Status" type="radio" class="form-check-input"
-                                        required="">
+                                    <input id="Status" name="status" type="radio" value="0"
+                                        @if (old('status')) checked @endif class="form-check-input">
 
                                     <label class="form-check-label" for="Status">Inavtive</label>
-                                    <input id="Status" name="Status" type="radio" class="form-check-input"
-                                        required="">
+                                    <input id="Status" name="status" type="radio" value="1"
+                                        @if (!old('status')) checked @endif class="form-check-input">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-3 "></div>
                                 <div class="col-4 ">
-                                    <button type="submit" class="btn btn-outline-danger">Reset</button>
+                                    <button type="reset" class="btn btn-outline-danger">Reset</button>
                                 </div>
                                 <div class="col-4">
-                                    <button type="submit" class="btn btn-outline-success">Save</button>
+                                    {{-- <button type="submit" class="btn btn-outline-success">Save</button> --}}
+                                    <button class="btn btn-success btn-submit">Submit</button>
                                 </div>
                             </div>
 
@@ -677,6 +737,8 @@
             </div>
         </div>
         <!--end page wrapper -->
+
+
         <!--start overlay-->
         <div class="overlay toggle-icon"></div>
         <!--end overlay-->

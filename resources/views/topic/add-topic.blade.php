@@ -863,7 +863,7 @@
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" name="topic" class="form-control" id="topic"
-                                                placeholder="Enter Topic Name ...">
+                                                placeholder="Enter Topic Name ..." required>
                                         </div>
                                     </div>
 
@@ -871,7 +871,7 @@
                                         <label class="col-sm-3 col-form-label ">Subject
                                         </label>
                                         <div class="col-sm-9">
-                                            <select name="subject_id" id="subject_id" class="py-1 form-control">
+                                            <select name="subject_id" id="subject_id" class="py-1 form-control" required>
                                                 <option value="">select subject</option>
                                                 @if (count($subjects) > 0)
                                                     @foreach ($subjects as $subject)
@@ -887,7 +887,7 @@
                                         <label for="" class="col-sm-3 col-form-label ">Level
                                         </label>
                                         <div class="col-sm-9">
-                                            <select name="level" id="level" class="py-1 form-control">
+                                            <select name="level" id="level" class="py-1 form-control" required>
                                                 <option value="easy">Easy</option>
                                                 <option value="moderate">Modarate</option>
                                                 <option value="hard">Hard</option>

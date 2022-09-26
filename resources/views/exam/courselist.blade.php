@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Add New Course'))
+@section('title', __('Exam List'))
 @push('styles')
     <!--plugins-->
     <link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
@@ -443,6 +443,7 @@
         </header>
         <!--end header -->
         <!--end header -->
+
         <!--start page wrapper -->
         <div class="page-wrapper">
             <div class="page-content">
@@ -465,6 +466,7 @@
                         </div>
                         <div class="">
                             <table class="table " style="width:100% ;">
+
                                 <thead class="table-light">
                                     <tr>
                                         <th>S/L</th>
@@ -478,85 +480,88 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex ">
-                                                <div>
-                                                    <input class="form-check-input me-3" type="checkbox" value=""
-                                                        aria-label="...">
-                                                </div>
-                                                <div>
-                                                    <h6> 1</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><img src="assets/images/student_photo/Course_pdf.png" alt=""
-                                                style="width:50px ;"></td>
-                                        <td>Title</td>
-                                        <td>catagory</td>
-                                        <td>
-                                            <textarea name="" id="" cols="20" rows="auto" readonly
-                                                style="resize: none; border: none; outline: none;">Rail, W.B.C.S, Police, etc.
-                                    </textarea>
-                                        </td>
-                                        <td>
-                                            <label for="">Active</label>
-                                            <input type="radio" name="R_btn" id="">
-                                            <label for="R_btn">Pause
-                                                <input type="radio" name="R_btn" id="" class="R_btn">
-                                            </label>
-                                        </td>
-                                        <td><button type="button" class="btn btn-primary  radius-30">Details</button>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex order-actions">
-                                                <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                                <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @if (count($exam_list) > 0)
 
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex ">
-                                                <div>
-                                                    <input class="form-check-input me-3" type="checkbox" value=""
-                                                        aria-label="...">
-                                                </div>
-                                                <div>
-                                                    <h6> 2</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><img src="assets/images/student_photo/Course_pdf.png" alt=""
-                                                style="width:50px ;"></td>
-                                        <td>Title</td>
-                                        <td>catagory</td>
-                                        <td>
-                                            <textarea name="" id="" cols="20" rows="auto" readonly
-                                                style="resize: none; border: none; outline: none;">Rail, W.B.C.S, Police, etc.
-                                    </textarea>
-                                        </td>
-                                        <td>
-                                            <label for="">Active</label>
-                                            <input type="radio" name="R_btn" id="">
-                                            <label for="R_btn">Pause
-                                                <input type="radio" name="R_btn" id="" class="R_btn">
-                                            </label>
-                                        </td>
-                                        <td><button type="button" class="btn btn-primary  radius-30">Details</button>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex order-actions">
-                                                <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                                <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
+                                        @foreach ($exam_list as $key => $exam)
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex ">
+                                                        <div>
+                                                            <input class="form-check-input me-3" type="checkbox"
+                                                                value="" aria-label="...">
+                                                        </div>
+                                                        <div>
+                                                            <h6>{{ $key + 1 }}</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><img src="assets/images/student_photo/Course_pdf.png" alt=""
+                                                        style="width:50px ;"></td>
+                                                <td>{!! $exam->exam_name !!}</td>
+                                                <td>{{ $exam->examCategory[0]['name'] }}</td>
+                                                <td>
+                                                    <textarea name="" id="" cols="20" rows="auto" readonly
+                                                        style="resize: none; border: none; outline: none;">{{ $exam->description }}
+                                                    </textarea>
+                                                </td>
+                                                <td>
+                                                    <h6>{{ $exam->status === 1 ? 'Inactive' : 'Active' }}</h6>
+                                                </td>
+                                                <td><button type="button" data-id="{{ $exam->id }}"
+                                                        class="btn btn-primary  radius-30" data-bs-toggle="modal"
+                                                        data-bs-target="#myModal">Details</button>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex order-actions">
+                                                        <a href="javascript:;" class=""><i
+                                                                class='bx bxs-edit'></i></a>
+                                                        <a href="javascript:;" class="ms-3"><i
+                                                                class='bx bxs-trash'></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr class="info">
+                                            <td colspan="7">Exams not found!</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- The Modal -->
+                        <div class="modal" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Exam Details</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        @if (count($exam_list) > 0)
+                                            @foreach ($exam_list as $exam)
+                                                <h6>{!! $exam->exam_name !!}</h6>
+                                                <h6>{{ $exam->description }}</h6>
+                                            @endforeach
+                                        @else
+                                        @endif
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 

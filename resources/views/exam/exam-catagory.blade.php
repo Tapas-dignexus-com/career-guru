@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Add New Course'))
+@section('title', __('Exam Category'))
 @push('styles')
     <!--plugins-->
     <link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />

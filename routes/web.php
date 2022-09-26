@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\ExamController;
 
 Route::get('/', function () {
     return view('dashboard.dashboard');
@@ -62,6 +63,11 @@ Route::delete('/delete-subject', [AdminController::class, 'deleteSubject'])->nam
 //Topic Section
 Route::get('/add-topic', [AdminController::class, 'createTopic']);
 Route::post('/add-topic', [AdminController::class, 'addTopic'])->name('addTopic');
+
+//Exam Section
+Route::get('/add-exam', [ExamController::class, 'createExam']);
+Route::post('/add-exam', [ExamController::class, 'addExam'])->name('addExam');
+Route::get('/exam-list', [ExamController::class, 'examList'])->name('examList');
 
 
 Route::get('/view-subject-list', [AdminController::class, 'listSubject']);
