@@ -110,4 +110,6 @@ class AdminController extends Controller
         dd($allTopic);
         return view('subject.view_subject_list');
     }
+
+
 }

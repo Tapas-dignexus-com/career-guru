@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ExamCategory extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'exam_categories';
+
+    protected $fillable = [
+        'code',
+        'name',
+        'icon',
+        'color'
+    ];
 }

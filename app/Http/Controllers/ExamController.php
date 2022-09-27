@@ -7,9 +7,38 @@ use Illuminate\Support\File;
 use App\Models\ExamCategory;
 use App\Models\Exam;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class ExamController extends Controller
 {
+    public function createExamCategory()
+    {
+        return view('exam.exam-catagory');
+    }
+
+    public function addExamCategory(Request $request)
+    {
+        $request->validate([
+            'code' => 'required',
+            'name' => 'required',
+            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'color' => 'required',
+        ]);
+
+        $path = $request->file('icon')->store('public/files');
+
+        //ExamCategory::create($input);
+        $exam_category = new ExamCategory;
+        $exam_category->code = $request->code;
+        $exam_category->name = $request->name;
+        $exam_category->icon = $path;
+        $exam_category->color = $request->color;
+        $exam_category->save();
+
+        return back()->with('success', 'Thanks you for adding!!');
+    }
+
+
     public function createExam()
     {
         $exam_category = ExamCategory::all();
@@ -144,14 +173,6 @@ class ExamController extends Controller
 
     // Delete
     public function deleteExam(Request $request)
-    // {
-    //     Exam::destroy($id);
-
-    //     Session::flash('message', 'Delete successfully!');
-    //     Session::flash('alert-class', 'alert-success');
-    //     return redirect()->route('examList');
-    // }
-
     {
         try {
             Exam::where('id', $request->id)->delete();

@@ -65,6 +65,9 @@ Route::get('/add-topic', [AdminController::class, 'createTopic']);
 Route::post('/add-topic', [AdminController::class, 'addTopic'])->name('addTopic');
 
 //Exam Section
+Route::get('/exam-category', [ExamController::class, 'createExamCategory']);
+Route::post('/exam-category', [ExamController::class, 'addExamCategory'])->name('addExamCategory');
+
 Route::get('/add-exam', [ExamController::class, 'createExam']);
 Route::post('/add-exam', [ExamController::class, 'addExam'])->name('addExam');
 Route::get('/exam-list', [ExamController::class, 'examList'])->name('examList');

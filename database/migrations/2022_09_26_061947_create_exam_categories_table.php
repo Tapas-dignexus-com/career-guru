@@ -16,7 +16,10 @@ return new class extends Migration
     {
         Schema::create('exam_categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code', 7);
             $table->string('name', 100);
+            $table->string('icon')->nullable();
+            $table->string('color');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')

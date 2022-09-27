@@ -443,6 +443,7 @@
             </div>
         </header>
         <!--end header -->
+
         <!--start page wrapper -->
         <div class="page-wrapper">
             <div class="page-content">
@@ -450,24 +451,42 @@
                 <!-- <div class="page-breadcrumb d-none d-sm-flex align-items-center "> -->
                 <div class="breadcrumb-title">Exam Catagory</div>
                 <!-- </div> -->
+
+                @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <!--end breadcrumb-->
                 <div class="card">
                     <div class="card-body">
                         <div class="d-lg-flex align-items-center mb-4 gap-3">
                             <!-- <div class="position-relative">
-                                                <input type="text" class="form-control ps-5 radius-30" placeholder="Search Course">
-                                                <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
-                                            </div> -->
-                            <div class="d-flex gap-3">
-                                <input type="text" name="" id="" placeholder="Code">
-                                <input type="text" name="" id=""placeholder="Name">
-                                <!-- <input type="file" name="" id="" style="width:200px;">
-                                                <label for=""> syllabus</label> -->
-                                <input type="file" name="" id="" style="width:200px;">
-                                <label for="">Color</label>
-                                <input type="color" name="" id="">
-                                <button type="submit" class="px-3">Add</button>
-                            </div>
+                                                                <input type="text" class="form-control ps-5 radius-30" placeholder="Search Course">
+                                                                <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
+                                                            </div> -->
+                            <form id="addExamCategory" action="{{ route('addExamCategory') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="d-flex gap-3">
+                                    <input type="text" name="code" id="code" placeholder="Code">
+                                    <input type="text" name="name" id="name"placeholder="Name">
+                                    <input type="file" name="icon" id="icon" style="width:200px;">
+                                    <label for="color">Color</label>
+                                    <input type="color" name="color" id="color">
+                                    <button type="submit" class="px-3">Add</button>
+                                </div>
+                            </form>
                             <!-- <div class="ms-auto"><a href="javascript:;" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Add New Student </a></div> -->
                         </div>
                         <div class="">
@@ -478,11 +497,11 @@
                                         <th class="border ">Code</th>
                                         <th class="border ">Image/Icon</th>
                                         <th class=""> Name</th>
-                                        <th class="border">syllabus</th>
+                                        {{-- <th class="border">syllabus</th> --}}
                                         <th class="border">Subject Name</th>
                                         <th class="border">Level</th>
                                         <th class="border">Topic</th>
-                                        <th class="border">Marks</th>
+                                        {{-- <th class="border">Marks</th> --}}
                                         <th class="border">Color</th>
                                         <th class="border ">Actions</th>
                                     </tr>
@@ -505,9 +524,9 @@
                                                 style="width:50px ;" class="border"></td>
                                         <td class=" border">Name</td>
 
-                                        <td>
+                                        {{-- <td>
                                             syllabus
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             History
                                         </td>
@@ -517,50 +536,7 @@
                                         <td>
                                             Indian History
                                         </td>
-                                        <td>
-                                            80
-                                        </td>
-                                        <td class="border">
-                                        </td>
-                                        <td class="border">
-                                            <div class="d-flex order-actions ">
-                                                <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                                <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="border">
-                                        <td class="border">
-                                            <div class="d-flex ">
-                                                <div>
-                                                    <input class="form-check-input me-3" type="checkbox" value=""
-                                                        aria-label="...">
-                                                </div>
-                                                <div>
-                                                    <h6> 1</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="border">code</td>
-                                        <td><img src="assets/images/student_photo/Course_pdf.png" alt=""
-                                                style="width:50px ;" class="border"></td>
-                                        <td class=" border">Name</td>
 
-                                        <td>
-                                            syllabus
-                                        </td>
-                                        <td>
-                                            History
-                                        </td>
-                                        <td>
-                                            Easy
-                                        </td>
-                                        <td>
-                                            Indian History
-                                        </td>
-                                        <td>
-                                            95
-                                        </td>
                                         <td class="border">
                                         </td>
                                         <td class="border">
@@ -570,6 +546,7 @@
                                             </div>
                                         </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -599,4 +576,31 @@
     <script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
     <!--app JS-->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        // $(document).ready(function() {
+        //     // Add Exam Category
+        //     $("#addExamCategory").submit(function(e) {
+        //         e.preventDefault();
+        //         // var formData = $(this).serialize();
+        //         var formData = new FormData(this);
+        //         //console.log(formData);return;
+        //         $.ajax({
+        //             url: "{{ route('addExamCategory') }}",
+        //             type: "POST",
+        //             data: formData,
+        //             processData: false,
+        //             contentType: false,
+        //             success: function(data) {
+        //                 console.log(data);
+        //                 if (data.success == true) {
+        //                     location.reload();
+        //                 } else {
+        //                     alert(data.msg);
+        //                 }
+        //             }
+        //         });
+        //     });
+
+        // });
+    </script>
 @endpush
