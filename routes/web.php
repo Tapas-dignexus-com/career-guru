@@ -68,6 +68,14 @@ Route::post('/add-topic', [AdminController::class, 'addTopic'])->name('addTopic'
 Route::get('/add-exam', [ExamController::class, 'createExam']);
 Route::post('/add-exam', [ExamController::class, 'addExam'])->name('addExam');
 Route::get('/exam-list', [ExamController::class, 'examList'])->name('examList');
+Route::get('/search-exam', [ExamController::class, 'examSearch'])->name('examSearch');
+
+## Update
+Route::get('/edit-exam/{id}', [ExamController::class, 'editExam'])->name('editExam');
+Route::post('/update-exam/{id}', [ExamController::class, 'updateExam'])->name('updateExam');
+
+## Delete
+Route::delete('/delete-exam', [ExamController::class, 'deleteExam'])->name('deleteExam');
 
 
 Route::get('/view-subject-list', [AdminController::class, 'listSubject']);

@@ -493,9 +493,11 @@
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
                                     Course Code</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="course_code" class="form-control" id="Features "
+                                <div class="col-sm-4">
+                                    <input type="text" name="course_code" class="form-control input mb-1" id="Features"
                                         placeholder="Enter Course Code" value="{{ old('course_code') }}">
+                                        <input type="button" id="button" value="Generate" class="btn btn-info"/>
+
                                     @if ($errors->has('course_code'))
                                         <span class="text-danger">{{ $errors->first('course_code') }}</span>
                                     @endif
@@ -762,4 +764,16 @@
     <script src="{{ asset('assets/js/form-text-editor.js') }}"></script>
     <!--app JS-->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        var gRandLength = 3;
+
+        $(document).ready(function() {
+            $('#button').click(function() {
+                var num = Math.floor(1 + (Math.random() * Math.pow(10, gRandLength)));
+                num = 'Exam-' + num;
+                //console.log(num);
+                $('.input').val(num);
+            });
+        });
+    </script>
 @endpush
