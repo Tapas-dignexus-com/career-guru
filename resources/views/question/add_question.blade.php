@@ -25,6 +25,7 @@
     <!--wrapper-->
     <div class="wrapper">
         @include('layouts.partials.sidebar')
+
         <!--start header -->
         <header>
             <div class="topbar d-flex align-items-center">
@@ -440,6 +441,7 @@
             </div>
         </header>
         <!--end header -->
+
         <!--start page wrapper -->
         <div class="page-wrapper">
             <div class="row">
@@ -448,216 +450,251 @@
                         <h3 class="text-info p-3">Question Management</h3>
                     </div>
                     <hr />
-                    <div class="card border-top border-0 border-4 border-info">
-                        <div class="card-body">
-                            <div class="border p-4 rounded">
-                                <div class="card-title d-flex align-items-center">
-                                    <div>
-                                        <i class="fadeIn animated bx bx-add-to-queue text-info font-22"></i>
-                                    </div>
-                                    <h5 class="mb-0 text-info ms-3">Add Question</h5>
-                                </div>
-                                <hr />
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Exam Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id=""
-                                            placeholder="Enter Exam Name">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Exam Code</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id=""
-                                            placeholder="Enter Exam Code">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Date</label>
-                                    <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="">
-                                    </div>
-                                </div>
 
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Choose Subject</label>
-                                    <div class="col-sm-9">
-                                        <select id="inputState" class="form-select">
-                                            <option selected="">Choose Here...</option>
-                                            <option value="">sub-1</option>
-                                            <option value="">sub-2</option>
-                                            <option value="">sub-3</option>
-                                            <option value="">sub-4</option>
-                                            <option value="">sub-5</option>
-                                            <option value="">sub-6</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Choose Topic</label>
-                                    <div class="col-sm-9">
-                                        <select id="inputState" class="form-select">
-                                            <option selected="">Choose Here...</option>
-                                            <option value="">Topic 1</option>
-                                            <option value="">Topic 2</option>
-                                            <option value="">Topic 3</option>
-                                            <option value="">Topic 4</option>
-                                            <option value="">Topic 5</option>
-                                            <option value="">Topic 6</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Choose Level</label>
-                                    <div class="col-sm-9">
-                                        <select id="inputState" class="form-select">
-                                            <option selected="">Choose Here...</option>
-                                            <option value="">Easy</option>
-                                            <option value="">Moderate</option>
-                                            <option value="">Hard</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Number Per Question</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id=""
-                                            placeholder="Number Per Question">
-                                    </div>
-                                </div>
+                    @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <ul>
+                                <li>{!! \Session::get('success') !!}</li>
+                            </ul>
+                        </div>
+                    @endif
 
-                                <div class="row mb-3">
-                                    <label for="" class="col-sm-3 col-form-label">Negative Marks</label>
-                                    <div class="col-sm-9">
-                                        <select id="inputState" class="form-select">
-                                            <option selected="">Choose Here...</option>
-                                            <option value="">0</option>
-                                            <option value="">0.25</option>
-                                            <option value="">0.5</option>
-                                            <option value="">0.75</option>
-                                            <option value="">1</option>
-                                            <option value="">1.25</option>
-                                            <option value="">1.5</option>
-                                            <option value="">1.75</option>
-                                            <option value="">2</option>
-                                            <option value="">2.25</option>
-                                            <option value="">2.5</option>
-                                            <option value="">2.75</option>
-                                            <option value="">3</option>
-                                            <option value="">3.25</option>
-                                            <option value="">3.5</option>
-                                            <option value="">3.75</option>
-                                            <option value="">4</option>
-                                            <option value="">4.25</option>
-                                            <option value="">4.5</option>
-                                            <option value="">4.75</option>
-                                            <option value="">5</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="row mb-2">
-                                    <label for="inputAddress4" class="col-sm-3 col-form-label">Question</label>
-                                    <div class="col-md-9">
-                                        <textarea class="form-control mb-2" id="inputAddress4" rows="3" placeholder="Enter Question...."
-                                            style="resize: none;"></textarea>
-                                        <input type="file" class="form-control " id="">
-                                    </div>
-                                </div>
-
-
-
-
-                                <div class="row mb-3 d-flex justify-content-between align-items-center">
-
-                                    <div class="col-6">
-                                        <label for="" class="col-sm-3 col-form-label">Answare-A</label>
-                                        <textarea class="form-control" id="" rows="3" placeholder="" style="resize: none;"></textarea>
-                                    </div>
-                                    <div class="col-2 mt-3">
-                                        <input type="file" class="form-control " id="">
-                                    </div>
-                                    <div class="col-3">
+                    <form action="{{ route('addQna') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card border-top border-0 border-4 border-info">
+                            <div class="card-body">
+                                <div class="border p-4 rounded">
+                                    <div class="card-title d-flex align-items-center">
                                         <div>
-                                            <label for="Option-a">Correct Answare-</label>
-                                            <input type="radio" name="right" id="Option-a">
+                                            <i class="fadeIn animated bx bx-add-to-queue text-info font-22"></i>
+                                        </div>
+                                        <h5 class="mb-0 text-info ms-3">Add Question</h5>
+                                    </div>
+                                    <hr />
+
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Exam Name</label>
+                                        <div class="col-sm-9">
+                                            <select id="inputState" name="exam_id" class="form-select" required>
+                                                <option selected="">Choose Here...</option>
+                                                @foreach ($examDetails as $examcode)
+                                                    <option value="{{ $examcode->id }}">{!! $examcode->exam_name !!}
+                                                @endforeach
+                                                {{-- <option value="{{ $examDetails[0]->id }}">{!! $examDetails[0]->exam_name !!} --}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Exam Code</label>
+                                        <div class="col-sm-9">
+                                            <select id="inputState" name="exam_code" class="form-select" required>
+                                                <option selected="">Choose Here...</option>
+                                                {{-- <option value="{{ $examDetails[0]->id }}">
+                                                    {{ $examDetails[0]->course_code }}</option> --}}
+                                                @foreach ($examDetails as $examcode)
+                                                    <option value="{{ $examcode->id }}">{!! $examcode->course_code !!}
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Date</label>
+                                        <div class="col-sm-9">
+                                            <input type="date" name="date" class="form-control" id=""
+                                                required>
+                                        </div>
+                                    </div>
+                                    {{-- @php
+                                        dd($topic[0]);
+                                    @endphp --}}
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Choose Topic</label>
+                                        <div class="col-sm-9">
+                                            <select id="inputState" name="topic_id" class="form-select" required>
+                                                <option selected="">Choose Here...</option>
+                                                {{-- <option value="{{ $topic[0]->id }}">{{ $topic[0]->topic }}</option> --}}
+                                                @foreach ($topic as $examtopic)
+                                                    <option value="{{ $examtopic->id }}">{{ $examtopic->topic }}
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
 
-                                </div>
-
-                                <div class="row mb-3 d-flex justify-content-between align-items-center">
-                                    <div class="col-6">
-                                        <label for="" class="col-sm-3 col-form-label">Answare-B</label>
-                                        <textarea class="form-control" id="" rows="3" placeholder="" style="resize: none;"></textarea>
-                                    </div>
-                                    <div class="col-2 mt-3">
-                                        <input type="file" class="form-control " id="">
-                                    </div>
-                                    <div class="col-3">
-                                        <div>
-                                            <label for="Option-b">Correct Answare-</label>
-                                            <input type="radio" name="right" id="Option-b">
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Choose Subject</label>
+                                        <div class="col-sm-9">
+                                            <select id="inputState" name="subject" class="form-select" required>
+                                                <option selected="">Choose Here...</option>
+                                                {{-- <option value="{{ $topic[0]->id }}">{{ $topic[0]->subjects[0]->subject }}
+                                                </option> --}}
+                                                @foreach ($topic as $examtopic)
+                                                    <option value="{{ $examtopic->id }}">
+                                                        {{ $examtopic->subjects[0]->subject }}
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3 d-flex justify-content-between align-items-center">
-                                    <div class="col-6">
-                                        <label for="" class="col-sm-3 col-form-label">Answare-C</label>
-                                        <textarea class="form-control" id="" rows="3" placeholder="" style="resize: none;"></textarea>
-                                    </div>
-                                    <div class="col-2 mt-3">
-                                        <input type="file" class="form-control " id="">
-                                    </div>
-                                    <div class="col-3">
-                                        <div>
-                                            <label for="Option-c">Correct Answare-</label>
-                                            <input type="radio" name="right" id="Option-c">
+
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Choose Level</label>
+                                        <div class="col-sm-9">
+                                            <select id="inputState" name="level" class="form-select" required>
+                                                <option selected="">Choose Here...</option>
+                                                {{-- <option value="{{ $topic[0]->id }}">{{ $topic[0]->level }}</option> --}}
+                                                @foreach ($topic as $examtopic)
+                                                    <option value="{{ $examtopic->id }}">
+                                                        {{ $examtopic->level }}
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3 d-flex justify-content-between align-items-center">
-                                    <div class="col-6">
-                                        <label for="" class="col-sm-3 col-form-label">Answare-D</label>
-                                        <textarea class="form-control" id="" rows="3" placeholder="" style="resize: none;"></textarea>
-                                    </div>
-                                    <div class="col-2 mt-3">
-                                        <input type="file" class="form-control " id="">
-                                    </div>
-                                    <div class="col-3">
-                                        <div>
-                                            <label for="Option-d">Correct Answare-</label>
-                                            <input type="radio" name="right" id="Option-d">
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Number Per Question</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="number_per_question" class="form-control"
+                                                id="" placeholder="Number Per Question" required>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row mb-5 d-flex justify-content-left align-items-center">
-                                    <div class="col-6">
-                                        <label for="" class="col-sm-3 col-form-label">Answare Logic </label>
-                                        <textarea class="form-control" id="" rows="3" placeholder="" style="resize: none;"></textarea>
+                                    <div class="row mb-3">
+                                        <label for="" class="col-sm-3 col-form-label">Negative Marks</label>
+                                        <div class="col-sm-9">
+                                            <select id="inputState" name="negative_marking" class="form-select" required>
+                                                <option selected="">Choose Here...</option>
+                                                <option value="0">0</option>
+                                                <option value="0.25">0.25</option>
+                                                <option value="0.5">0.5</option>
+                                                <option value="0.75">0.75</option>
+                                                <option value="1">1</option>
+                                                <option value="1.25">1.25</option>
+                                                <option value="1.5">1.5</option>
+                                                <option value="1.75">1.75</option>
+                                                <option value="2">2</option>
+                                                <option value="2.25">2.25</option>
+                                                <option value="2.5">2.5</option>
+                                                <option value="2.75">2.75</option>
+                                                <option value="3">3</option>
+                                                <option value="3.25">3.25</option>
+                                                <option value="3.5">3.5</option>
+                                                <option value="3.75">3.75</option>
+                                                <option value="4">4</option>
+                                                <option value="4.25">4.25</option>
+                                                <option value="4.5">4.5</option>
+                                                <option value="4.75">4.75</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-6 mt-3">
-                                        <input type="file" class="form-control " id="">
+
+
+                                    <div class="row mb-2">
+                                        <label for="inputAddress4" class="col-sm-3 col-form-label">Question</label>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control mb-2" name="question" id="inputAddress4" rows="3"
+                                                placeholder="Enter Question...." style="resize: none;" required></textarea>
+                                            <input type="file" name="question_image" class="form-control "
+                                                id="">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row mb-3 d-flex justify-content-between align-items-center">
+
+                                        <div class="col-6">
+                                            <label for="" class="col-sm-3 col-form-label">Answer-A</label>
+                                            <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
+                                        </div>
+                                        <div class="col-2 mt-3">
+                                            <input type="file" name="ans_img[]" class="form-control " id="">
+                                        </div>
+                                        <div class="col-3">
+                                            <div>
+                                                <label for="Option-a">Correct Answare-</label>
+                                                <input type="radio" name="is_correct" id="Option-a">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-3 d-flex justify-content-between align-items-center">
+                                        <div class="col-6">
+                                            <label for="" class="col-sm-3 col-form-label">Answer-B</label>
+                                            <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
+                                        </div>
+                                        <div class="col-2 mt-3">
+                                            <input type="file" name="ans_img[]" class="form-control " id="">
+                                        </div>
+                                        <div class="col-3">
+                                            <div>
+                                                <label for="Option-b">Correct Answare-</label>
+                                                <input type="radio" name="is_correct" id="Option-b">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3 d-flex justify-content-between align-items-center">
+                                        <div class="col-6">
+                                            <label for="" class="col-sm-3 col-form-label">Answer-C</label>
+                                            <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
+                                        </div>
+                                        <div class="col-2 mt-3">
+                                            <input type="file" name="ans_img[]" class="form-control " id="">
+                                        </div>
+                                        <div class="col-3">
+                                            <div>
+                                                <label for="Option-c">Correct Answare-</label>
+                                                <input type="radio" name="is_correct" id="Option-c">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3 d-flex justify-content-between align-items-center">
+                                        <div class="col-6">
+                                            <label for="" class="col-sm-3 col-form-label">Answer-D</label>
+                                            <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
+                                        </div>
+                                        <div class="col-2 mt-3">
+                                            <input type="file" name="ans_img[]" class="form-control " id="">
+                                        </div>
+                                        <div class="col-3">
+                                            <div>
+                                                <label for="Option-d">Correct Answare-</label>
+                                                <input type="radio" name="is_correct" id="Option-d">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-5 d-flex justify-content-left align-items-center">
+                                        <div class="col-6">
+                                            <label for="" class="col-sm-3 col-form-label">Answare Logic </label>
+                                            <textarea class="form-control" name="answer_logic" id="" rows="3" placeholder=""
+                                                style="resize: none;"></textarea>
+                                        </div>
+                                        <div class="col-6 mt-3">
+                                            <input type="file" name="ans_logic_image" class="form-control "
+                                                id="">
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="d-flex justify-content-center gap-5">
+                                        <button type="submit" class="btn btn-outline-danger"><i
+                                                class="fadeIn animated bx bx-revision"></i>Reset</button>
+                                        <button type="submit" class="btn btn-outline-info"><i
+                                                class="fadeIn animated bx bx-right-indent"></i>Preview</button>
+                                        <button type="submit" class="btn btn-outline-success"><i
+                                                class="fadeIn animated bx bx-skip-next"></i>Save and Next</button>
                                     </div>
 
                                 </div>
-
-                                <div class="d-flex justify-content-center gap-5">
-                                    <button type="submit" class="btn btn-outline-danger"><i
-                                            class="fadeIn animated bx bx-revision"></i>Reset</button>
-                                    <button type="submit" class="btn btn-outline-info"><i
-                                            class="fadeIn animated bx bx-right-indent"></i>Preview</button>
-                                    <button type="submit" class="btn btn-outline-success"><i
-                                            class="fadeIn animated bx bx-skip-next"></i>Save and Next</button>
-                                </div>
-
                             </div>
                         </div>
-                    </div>
-                    <!--end row-->
+                        <!--end row-->
+                    </form>
+
                 </div>
             </div>
             <!--end page wrapper -->
@@ -672,6 +709,7 @@
             </footer>
         </div>
         <!--end wrapper-->
+
     @endsection
 
     @push('scripts')

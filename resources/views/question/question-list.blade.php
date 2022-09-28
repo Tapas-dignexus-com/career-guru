@@ -19,6 +19,18 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dark-theme.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/semi-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/header-colors.css') }}" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <style>
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0px !important;
+            margin: 0px !important;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select {
+            width: 50% !important;
+        }
+    </style>
 @endpush
 
 @section('main-content')
@@ -441,6 +453,15 @@
         </header>
         <!--end header -->
         <!--end header -->
+        {{-- @php
+            // die($questions[0]->answers);
+            foreach ($questions as $key => $value) {
+                print_r($value->answers);
+                foreach ($value->answers as $key => $ans) {
+                    //print_r($ans);
+                }
+            }
+        @endphp --}}
         <!--start page wrapper -->
         <div class="page-wrapper">
             <div class="page-content">
@@ -455,11 +476,9 @@
                     <div class="card-body">
                         <div class="d-flex mb-4 justify-content-between gap-3">
                             <div class="position-relative">
-                                <input type="text" class="form-control ps-5 radius-30" placeholder="Search . . .">
-
-
+                                {{-- <input type="text" class="form-control ps-5 radius-30" placeholder="Search . . .">
                                 <span class="position-absolute top-50 product-show translate-middle-y"><i
-                                        class="bx bx-search"></i></span>
+                                        class="bx bx-search"></i></span> --}}
                             </div>
                             <div class="d-flex gap-3">
                                 <div class="ms-auto"><a href="javascript:;" class="btn btn-info radius-30 "><i
@@ -469,248 +488,110 @@
                             </div>
                         </div>
                         <div class="">
-                            <table class="table " style="width:100% ; border: 1px solid black;">
+                            <table class="table" id="myDataTable" style="width:100%;border: 1px solid black;">
                                 <thead class="table-light border">
                                     <tr>
                                         <th style="width:20px ;">Exam Code</th>
-                                        <th>Subject Code</th>
+                                        <th>Subject</th>
                                         <th class="border">Topic Code</th>
                                         <th class="border">Level Code</th>
-                                        <th class="border" style="width: 50%;"> Question</th>
+                                        <th class="border" style="width: 50%;">Question</th>
                                         <th class="border">Correct Answare</th>
                                         <th class="border">Number Per Question</th>
                                         <th class="border"style="width:10% ;">Negative Marks</th>
 
-                                        <th class="border">Opt-1</th>
+                                        {{-- <th class="border">Opt-1</th>
                                         <th class="border">Opt-2</th>
                                         <th class="border">Opt-3</th>
-                                        <th class="border">Opt-4</th>
+                                        <th class="border">Opt-4</th> --}}
                                         <th class="border">View</th>
                                         <th class="border">Action</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="border">
-                                        <td class="border">
-                                            001
-                                        </td>
+                                    @foreach ($questions as $key => $value)
+                                        <tr class="border">
+                                            <td class="border">
+                                                {{ $value->exam[0]->course_code }}
+                                            </td>
 
-                                        <td class="border">
-                                            hm1
-                                        </td>
+                                            <td class="border">
+                                                {{ $value->topic[0]->subjects[0]['subject'] }}
+                                            </td>
 
-                                        <td class="border">d1</td>
-                                        <td class="border">f1</td>
-                                        <td class="border">
-                                            What is question?
-                                        </td>
-                                        <td class="border"> D</td>
-                                        <td class="border">1</td>
-                                        <td class="border">0.75</td>
-                                        <td class="border">ans1</td>
-                                        <td class="border">ans2</td>
-                                        <td class="border">ans3</td>
-                                        <td class="border">ans4</td>
+                                            <td class="border"> {{ $value->topic[0]->topic }}</td>
+                                            <td class="border"> {{ $value->topic[0]->level }}</td>
+                                            <td class="border">
+                                                {{ $value->question }}
+                                            </td>
+                                            <td class="border"> D</td>
+                                            <td class="border">{{ $value->number_per_question }}</td>
+                                            <td class="border">{{ $value->negative_marking }}</td>
+                                            {{-- @foreach ($value->answers as $key => $ans) --}}
+                                            {{-- <td class="border">{{ $ans->answer }}</td> --}}
 
+                                            <!-- The Modal -->
+                                            <div class="modal" id="myModal">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
 
-                                        <td class="border"><a href="view_record.html"><button type="button"
-                                                    class="btn btn-primary  radius-30">View</button></a></td>
-                                        <td class="border">
-                                            <div class="d-flex order-actions">
-                                                <a href="javascript:;" class=""><i
-                                                        class='bx bxs-edit text-success'></i></a>
-                                                <a href="javascript:;" class="ms-3"><i
-                                                        class='bx bxs-trash text-danger'></i></a>
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Answer List</h4>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"></button>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <div class="modal-body">
+                                                            @foreach ($value->answers as $key => $ans)
+                                                                <p>{{ $key + 1 . ').' . $ans->answer }}</p>
+                                                            @endforeach
+                                                        </div>
+
+                                                        <!-- Modal footer -->
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
+                                            {{-- @endforeach --}}
 
-                                    <!-- <tr>
-                                      <td>
-                                       <div class="d-flex ">
-                                        <div>
-                                         <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                        </div>
-                                        <div>
-                                         <h6 >std-id 001</h6>
-                                        </div>
-                                       </div>
-                                      </td>
-                                      <td><img src="assets/images/student_photo/sachin-tendulkar-legends.jpg" alt="" style="width:50px ;"></td>
-                                      <td>Sachin tendulkar</td>
-                                      <td>Ramesh tendulkar</td>
-                                      <td  >
-                                       <textarea name="" id="" cols="20" rows="auto" readonly
-                                           style="resize: none; border: none; outline: none;">19-A, Perry Cross Road, Bandra (West),Mumbai, Maharashtra
-											</textarea>
-                                      </td>
-                                      <td> 400050.</td>
-                                      <td>99XXXXXXXX</td>
-                                      <td>99X</td>
-                                      <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-                                      <td>
-                                       <div class="d-flex order-actions">
-                                        <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                       </div>
-                                      </td>
-                                     </tr>
-                                     <tr>
-                                      <td>
-                                       <div class="d-flex ">
-                                        <div>
-                                         <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                        </div>
-                                        <div>
-                                         <h6 >std-id 001</h6>
-                                        </div>
-                                       </div>
-                                      </td>
-                                      <td><img src="assets/images/student_photo/sachin-tendulkar-legends.jpg" alt="" style="width:50px ;"></td>
-                                      <td>Sachin tendulkar</td>
-                                      <td>Ramesh tendulkar</td>
-                                      <td  >
-                                       <textarea name="" id="" cols="20" rows="auto" readonly
-                                           style="resize: none; border: none; outline: none;">19-A, Perry Cross Road, Bandra (West),Mumbai, Maharashtra
-											</textarea>
-                                      </td>
-                                      <td> 400050.</td>
-                                      <td>99XXXXXXXX</td>
-                                      <td>99X</td>
-                                      <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-                                      <td>
-                                       <div class="d-flex order-actions">
-                                        <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                       </div>
-                                      </td>
-                                     </tr>
-                                     <tr>
-                                      <td>
-                                       <div class="d-flex ">
-                                        <div>
-                                         <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                        </div>
-                                        <div>
-                                         <h6 >std-id 001</h6>
-                                        </div>
-                                       </div>
-                                      </td>
-                                      <td><img src="assets/images/student_photo/sachin-tendulkar-legends.jpg" alt="" style="width:50px ;"></td>
-                                      <td>Sachin tendulkar</td>
-                                      <td>Ramesh tendulkar</td>
-                                      <td  >
-                                       <textarea name="" id="" cols="20" rows="auto" readonly
-                                           style="resize: none; border: none; outline: none;">19-A, Perry Cross Road, Bandra (West),Mumbai, Maharashtra
-											</textarea>
-                                      </td>
-                                      <td> 400050.</td>
-                                      <td>99XXXXXXXX</td>
-                                      <td>99X</td>
-                                      <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-                                      <td>
-                                       <div class="d-flex order-actions">
-                                        <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                       </div>
-                                      </td>
-                                     </tr>
-                                     <tr>
-                                      <td>
-                                       <div class="d-flex ">
-                                        <div>
-                                         <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                        </div>
-                                        <div>
-                                         <h6 >std-id 001</h6>
-                                        </div>
-                                       </div>
-                                      </td>
-                                      <td><img src="assets/images/student_photo/sachin-tendulkar-legends.jpg" alt="" style="width:50px ;"></td>
-                                      <td>Sachin tendulkar</td>
-                                      <td>Ramesh tendulkar</td>
-                                      <td  >
-                                       <textarea name="" id="" cols="20" rows="auto" readonly
-                                           style="resize: none; border: none; outline: none;">19-A, Perry Cross Road, Bandra (West),Mumbai, Maharashtra
-											</textarea>
-                                      </td>
-                                      <td> 400050.</td>
-                                      <td>99XXXXXXXX</td>
-                                      <td>99X</td>
-                                      <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-                                      <td>
-                                       <div class="d-flex order-actions">
-                                        <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                       </div>
-                                      </td>
-                                     </tr>
-                                     <tr>
-                                      <td>
-                                       <div class="d-flex ">
-                                        <div>
-                                         <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                        </div>
-                                        <div>
-                                         <h6 >std-id 001</h6>
-                                        </div>
-                                       </div>
-                                      </td>
-                                      <td><img src="assets/images/student_photo/sachin-tendulkar-legends.jpg" alt="" style="width:50px ;"></td>
-                                      <td>Sachin tendulkar</td>
-                                      <td>Ramesh tendulkar</td>
-                                      <td  >
-                                       <textarea name="" id="" cols="20" rows="auto" readonly
-                                           style="resize: none; border: none; outline: none;">19-A, Perry Cross Road, Bandra (West),Mumbai, Maharashtra
-											</textarea>
-                                      </td>
-                                      <td> 400050.</td>
-                                      <td>99XXXXXXXX</td>
-                                      <td>99X</td>
-                                      <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-                                      <td>
-                                       <div class="d-flex order-actions">
-                                        <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                       </div>
-                                      </td>
-                                     </tr>
-                                     <tr>
-                                      <td>
-                                       <div class="d-flex ">
-                                        <div>
-                                         <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                        </div>
-                                        <div>
-                                         <h6 >std-id 001</h6>
-                                        </div>
-                                       </div>
-                                      </td>
-                                      <td><img src="assets/images/student_photo/sachin-tendulkar-legends.jpg" alt="" style="width:50px ;"></td>
-                                      <td>Sachin tendulkar</td>
-                                      <td>Ramesh tendulkar</td>
-                                      <td  >
-                                       <textarea name="" id="" cols="20" rows="" readonly
-                                           style="resize: none; border: none; outline: none;">19-A, Perry Cross Road, Bandra (West),Mumbai, Maharashtra
-											</textarea>
-                                      </td>
-                                      <td> 400050.</td>
-                                      <td>99XXXXXXXX</td>
-                                      <td>99X</td>
-                                      <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button></td>
-                                      <td>
-                                       <div class="d-flex order-actions">
-                                        <a href="javascript:;" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="javascript:;" class="ms-3"><i class='bx bxs-trash'></i></a>
-                                       </div>
-                                      </td>
-                                     </tr> -->
+                                            {{-- <td class="border"><a href="view_record.html"><button type="button"
+                                                        class="btn btn-primary  radius-30">View</button></a></td> --}}
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#myModal">
+                                                    View
+                                                </button>
+                                            </td>
+                                            {{-- <td class="border">
+                                                <div class="d-flex order-actions">
+                                                    <a href="javascript:;" class=""><i
+                                                            class='bx bxs-edit text-success'></i></a>
+                                                    <a href="javascript:;" class="ms-3"><i
+                                                            class='bx bxs-trash text-danger'></i></a>
+                                                </div>
+                                            </td> --}}
 
+                                            <td>
+                                                <div class="d-flex order-actions">
+                                                    {{-- Edit --}}
+                                                    <a href="{{ route('editQna', [$value->id]) }}" class=""><i
+                                                            class='bx bxs-edit'></i></a>
+                                                    {{-- Delete --}}
+                                                    <a data-id="{{ $value->id }}" class="ms-3 deleteButton"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteModal"><i
+                                                            class='bx bxs-trash'></i></a>
+                                                </div>
+                                            </td>
 
-
-
-
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -742,4 +623,14 @@
     <script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
     <!--app JS-->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#myDataTable').DataTable({
+                "pageLength": 2
+            });
+        });
+    </script>
 @endpush

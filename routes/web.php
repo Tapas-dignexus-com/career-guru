@@ -3,21 +3,23 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\QnaController;
+
 
 Route::get('/', function () {
     return view('dashboard.dashboard');
 });
 
 //Exam
-Route::get('/add-exam', function () {
-    return view('exam.Add_New_course');
-});
-Route::get('/exam-list', function () {
-    return view('exam.courselist');
-});
-Route::get('/exam-category', function () {
-    return view('exam.exam-catagory');
-});
+// Route::get('/add-exam', function () {
+//     return view('exam.Add_New_course');
+// });
+// Route::get('/exam-list', function () {
+//     return view('exam.courselist');
+// });
+// Route::get('/exam-category', function () {
+//     return view('exam.exam-catagory');
+//});
 
 //Student
 // Route::get('/subject-management', function () {
@@ -32,17 +34,17 @@ Route::get('/exam-category', function () {
 // Route::get('/add-topic', function () {
 //     return view('topic.add-topic');
 // });
-Route::get('/view-list-topic', function () {
-    return view('topic.view-topic');
-});
+// Route::get('/view-list-topic', function () {
+//     return view('topic.view-topic');
+// });
 
 //Question Managment
-Route::get('/add-question', function () {
-    return view('question.add_question');
-});
-Route::get('/question-list', function () {
-    return view('question.question-list');
-});
+// Route::get('/add-question', function () {
+//     return view('question.add_question');
+// });
+// Route::get('/question-list', function () {
+//     return view('question.question-list');
+// });
 
 //Student Managment
 Route::get('/add-student', function () {
@@ -79,6 +81,18 @@ Route::post('/update-exam/{id}', [ExamController::class, 'updateExam'])->name('u
 
 ## Delete
 Route::delete('/delete-exam', [ExamController::class, 'deleteExam'])->name('deleteExam');
+
+
+##Question and Answes
+Route::get('/add-question', [QnaController::class, 'createQna']);
+Route::post('/add-question', [QnaController::class, 'addQna'])->name('addQna');
+Route::get('/question-list', [QnaController::class, 'ListExam']);
+
+Route::get('/edit-qna/{id}', [QnaController::class, 'editQna'])->name('editQna');
+Route::post('/update-qna/{id}', [QnaController::class, 'updateQna'])->name('updateQna');
+
+Route::delete('/delete-qna', [QnaController::class, 'deleteQna'])->name('deleteQna');
+
 
 
 Route::get('/view-subject-list', [AdminController::class, 'listSubject']);
