@@ -511,6 +511,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($questions as $key => $value)
+
                                         <tr class="border">
                                             <td class="border">
                                                 {{ $value->exam[0]->course_code }}
@@ -532,7 +533,7 @@
                                             {{-- <td class="border">{{ $ans->answer }}</td> --}}
 
                                             <!-- The Modal -->
-                                            <div class="modal" id="myModal">
+                                            <div class="modal" id="myModal{{$value->id}}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
 
@@ -545,6 +546,9 @@
 
                                                         <!-- Modal body -->
                                                         <div class="modal-body">
+                                                            {{-- @php
+                                                                die($value->answers[0]);
+                                                            @endphp --}}
                                                             @foreach ($value->answers as $key => $ans)
                                                                 <p>{{ $key + 1 . ').' . $ans->answer }}</p>
                                                             @endforeach
@@ -565,7 +569,7 @@
                                                         class="btn btn-primary  radius-30">View</button></a></td> --}}
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#myModal">
+                                                    data-bs-target="#myModal{{$value->id}}">
                                                     View
                                                 </button>
                                             </td>
@@ -629,7 +633,7 @@
     <script>
         $(document).ready(function() {
             $('#myDataTable').DataTable({
-                "pageLength": 2
+                "pageLength": 5
             });
         });
     </script>

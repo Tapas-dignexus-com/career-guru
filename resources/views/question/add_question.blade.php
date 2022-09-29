@@ -473,7 +473,7 @@
                                     <hr />
 
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Exam Name</label>
+                                        <label for="" class="col-sm-3 col-form-label">Exam Name*</label>
                                         <div class="col-sm-9">
                                             <select id="inputState" name="exam_id" class="form-select" required>
                                                 <option selected="">Choose Here...</option>
@@ -486,7 +486,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Exam Code</label>
+                                        <label for="" class="col-sm-3 col-form-label">Exam Code*</label>
                                         <div class="col-sm-9">
                                             <select id="inputState" name="exam_code" class="form-select" required>
                                                 <option selected="">Choose Here...</option>
@@ -499,7 +499,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Date</label>
+                                        <label for="" class="col-sm-3 col-form-label">Date*</label>
                                         <div class="col-sm-9">
                                             <input type="date" name="date" class="form-control" id=""
                                                 required>
@@ -509,7 +509,7 @@
                                         dd($topic[0]);
                                     @endphp --}}
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Choose Topic</label>
+                                        <label for="" class="col-sm-3 col-form-label">Choose Topic*</label>
                                         <div class="col-sm-9">
                                             <select id="inputState" name="topic_id" class="form-select" required>
                                                 <option selected="">Choose Here...</option>
@@ -522,7 +522,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Choose Subject</label>
+                                        <label for="" class="col-sm-3 col-form-label">Choose Subject*</label>
                                         <div class="col-sm-9">
                                             <select id="inputState" name="subject" class="form-select" required>
                                                 <option selected="">Choose Here...</option>
@@ -537,7 +537,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Choose Level</label>
+                                        <label for="" class="col-sm-3 col-form-label">Choose Level*</label>
                                         <div class="col-sm-9">
                                             <select id="inputState" name="level" class="form-select" required>
                                                 <option selected="">Choose Here...</option>
@@ -550,7 +550,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Number Per Question</label>
+                                        <label for="" class="col-sm-3 col-form-label">Number Per Question*</label>
                                         <div class="col-sm-9">
                                             <input type="text" name="number_per_question" class="form-control"
                                                 id="" placeholder="Number Per Question" required>
@@ -558,7 +558,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Negative Marks</label>
+                                        <label for="" class="col-sm-3 col-form-label">Negative Marks*</label>
                                         <div class="col-sm-9">
                                             <select id="inputState" name="negative_marking" class="form-select" required>
                                                 <option selected="">Choose Here...</option>
@@ -589,7 +589,7 @@
 
 
                                     <div class="row mb-2">
-                                        <label for="inputAddress4" class="col-sm-3 col-form-label">Question</label>
+                                        <label for="inputAddress4" class="col-sm-3 col-form-label">Question*</label>
                                         <div class="col-md-9">
                                             <textarea class="form-control mb-2" name="question" id="inputAddress4" rows="3"
                                                 placeholder="Enter Question...." style="resize: none;" required></textarea>
@@ -607,12 +607,12 @@
                                             <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
                                         </div>
                                         <div class="col-2 mt-3">
-                                            <input type="file" name="ans_img[]" class="form-control " id="">
+                                            <input type="file" name="ans_img1" class="form-control " id="">
                                         </div>
                                         <div class="col-3">
                                             <div>
                                                 <label for="Option-a">Correct Answare-</label>
-                                                <input type="radio" name="is_correct" id="Option-a">
+                                                <input type="radio" name="is_correct" value="A" id="Option-a">
                                             </div>
                                         </div>
 
@@ -624,12 +624,13 @@
                                             <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
                                         </div>
                                         <div class="col-2 mt-3">
-                                            <input type="file" name="ans_img[]" class="form-control " id="">
+                                            <input type="file" name="ans_img2" class="form-control w-100"
+                                                id="">
                                         </div>
                                         <div class="col-3">
                                             <div>
                                                 <label for="Option-b">Correct Answare-</label>
-                                                <input type="radio" name="is_correct" id="Option-b">
+                                                <input type="radio" name="is_correct" value="B" id="Option-b">
                                             </div>
                                         </div>
                                     </div>
@@ -640,12 +641,12 @@
                                             <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
                                         </div>
                                         <div class="col-2 mt-3">
-                                            <input type="file" name="ans_img[]" class="form-control " id="">
+                                            <input type="file" name="ans_img3" class="form-control " id="">
                                         </div>
                                         <div class="col-3">
                                             <div>
                                                 <label for="Option-c">Correct Answare-</label>
-                                                <input type="radio" name="is_correct" id="Option-c">
+                                                <input type="radio" name="is_correct" value="C" id="Option-c">
                                             </div>
                                         </div>
                                     </div>
@@ -656,19 +657,19 @@
                                             <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
                                         </div>
                                         <div class="col-2 mt-3">
-                                            <input type="file" name="ans_img[]" class="form-control " id="">
+                                            <input type="file" name="ans_img4" class="form-control " id="">
                                         </div>
                                         <div class="col-3">
                                             <div>
                                                 <label for="Option-d">Correct Answare-</label>
-                                                <input type="radio" name="is_correct" id="Option-d">
+                                                <input type="radio" name="is_correct" value="D" id="Option-d">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row mb-5 d-flex justify-content-left align-items-center">
                                         <div class="col-6">
-                                            <label for="" class="col-sm-3 col-form-label">Answare Logic </label>
+                                            <label for="" class="col-sm-3 col-form-label">Answers Logic* </label>
                                             <textarea class="form-control" name="answer_logic" id="" rows="3" placeholder=""
                                                 style="resize: none;"></textarea>
                                         </div>

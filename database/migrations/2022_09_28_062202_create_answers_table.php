@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('question_id');
             $table->longText('answer')->nullable();
             $table->string('ans_image')->nullable();
-            $table->boolean('is_correct');
+            $table->string('is_correct')->default('');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')
                 ->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

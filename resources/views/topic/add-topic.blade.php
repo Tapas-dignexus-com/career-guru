@@ -859,7 +859,7 @@
                                     </div>
                                     <hr />
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label">Topic Name
+                                        <label for="" class="col-sm-3 col-form-label">Topic Name*
                                         </label>
                                         <div class="col-sm-9">
                                             <input type="text" name="topic" class="form-control" id="topic"
@@ -868,7 +868,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label class="col-sm-3 col-form-label ">Subject
+                                        <label class="col-sm-3 col-form-label ">Subject*
                                         </label>
                                         <div class="col-sm-9">
                                             <select name="subject_id" id="subject_id" class="py-1 form-control" required>
@@ -884,7 +884,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="" class="col-sm-3 col-form-label ">Level
+                                        <label for="" class="col-sm-3 col-form-label ">Level*
                                         </label>
                                         <div class="col-sm-9">
                                             <select name="level" id="level" class="py-1 form-control" required>

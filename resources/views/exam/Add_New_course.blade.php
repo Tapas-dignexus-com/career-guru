@@ -471,20 +471,20 @@
                                 <span class="text-danger">{{ $errors->first('exam_name') }}</span>
                             @endif
                             <div class="row mb-3 mt-3">
-                                <label for="Features " class="col-sm-3 col-form-label">Description</label>
+                                <label for="Features " class="col-sm-3 col-form-label">Description*</label>
                                 <div class="col-sm-9">
                                     <textarea name="description" id="" cols="20" rows="5"
-                                        class="form-control"placeholder="Description" style="resize: none;">{{ old('description') }}</textarea>
+                                        class="form-control"placeholder="Description" style="resize: none;" required>{{ old('description') }}</textarea>
                                     @if ($errors->has('description'))
                                         <span class="text-danger">{{ $errors->first('description') }}</span>
                                     @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">Features</label>
+                                <label for="Features " class="col-sm-3 col-form-label">Features*</label>
                                 <div class="col-sm-9">
                                     <textarea name="features" id="" cols="20" rows="5" class="form-control"placeholder="Features"
-                                        style="resize: none;">{{ old('features') }}</textarea>
+                                        style="resize: none;" required>{{ old('features') }}</textarea>
                                     @if ($errors->has('features'))
                                         <span class="text-danger">{{ $errors->first('features') }}</span>
                                     @endif
@@ -492,11 +492,11 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
-                                    Course Code</label>
+                                    Course Code*</label>
                                 <div class="col-sm-4">
-                                    <input type="text" name="course_code" class="form-control input mb-1" id="Features"
-                                        placeholder="Enter Course Code" value="{{ old('course_code') }}">
-                                        <input type="button" id="button" value="Generate" class="btn btn-info"/>
+                                    <input type="text" name="course_code" class="form-control input mb-1"
+                                        placeholder="Enter Course Code" value="{{ old('course_code') }}" required>
+                                    <input type="button" id="button" value="Generate" class="btn btn-info" />
 
                                     @if ($errors->has('course_code'))
                                         <span class="text-danger">{{ $errors->first('course_code') }}</span>
@@ -505,10 +505,10 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
-                                    Catagory</label>
+                                    Catagory*</label>
                                 <div class="col-sm-9">
                                     <select name="catagory_id" id=""
-                                        style="width:100%;"class="py-1 form-control">
+                                        style="width:100%;"class="py-1 form-control" required>
                                         <option value="">select category</option>
                                         @if (count($exam_category) > 0)
                                             @foreach ($exam_category as $exam_cat)
@@ -526,9 +526,10 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
-                                    Duration</label>
+                                    Duration*</label>
                                 <div class="col-sm-9">
-                                    <input type="time" name="duration" id="" value="{{ old('duration') }}">
+                                    <input type="time" name="duration" id="" value="{{ old('duration') }}"
+                                        required>
                                     @if ($errors->has('duration'))
                                         <span class="text-danger">{{ $errors->first('duration') }}</span>
                                     @endif
@@ -538,10 +539,10 @@
 
                             <div class="row mb-3">
                                 <label for="upload_syllabus " class="col-sm-3 col-form-label">
-                                    Upload Syllabus</label>
+                                    Upload Syllabus*</label>
                                 <div class="col-sm-9">
                                     <input type="file" name="upload_syllabus" value="{{ old('upload_syllabus') }}"
-                                        class="form-control" id="upload_syllabus">
+                                        class="form-control" id="upload_syllabus" required>
                                     @if ($errors->has('upload_syllabus'))
                                         <span class="text-danger">{{ $errors->first('upload_syllabus') }}</span>
                                     @endif
@@ -549,11 +550,11 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
-                                    Marks Per Question</label>
+                                    Marks Per Question*</label>
                                 <div class="col-sm-9">
                                     <input type="number" name="marks_per_question"
-                                        value="{{ old('marks_per_question') }}" class="form-control" id="Features "
-                                        placeholder="Marks Per Question">
+                                        value="{{ old('marks_per_question') }}" class="form-control"
+                                        placeholder="Marks Per Question" required>
                                     @if ($errors->has('marks_per_question'))
                                         <span class="text-danger">{{ $errors->first('marks_per_question') }}</span>
                                     @endif
@@ -561,11 +562,11 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
-                                    Negative Marking Per Question</label>
+                                    Negative Marking Per Question*</label>
                                 <div class="col-sm-9">
                                     <input type="number" value="{{ old('negative_marking_per_question') }}"
-                                        name="negative_marking_per_question" class="form-control" id="Features "
-                                        placeholder="Negative Marking Per Question">
+                                        name="negative_marking_per_question" class="form-control"
+                                        placeholder="Negative Marking Per Question" required>
                                     @if ($errors->has('negative_marking_per_question'))
                                         <span
                                             class="text-danger">{{ $errors->first('negative_marking_per_question') }}</span>
@@ -574,11 +575,11 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
-                                    Number Of Questions</label>
+                                    Number Of Questions*</label>
                                 <div class="col-sm-9">
                                     <input type="number" value="{{ old('number_of_questions') }}"
-                                        name="number_of_questions" class="form-control" id="Features "
-                                        placeholder="Number Of Questions">
+                                        name="number_of_questions" class="form-control" placeholder="Number Of Questions"
+                                        required>
                                     @if ($errors->has('number_of_questions'))
                                         <span class="text-danger">{{ $errors->first('number_of_questions') }}</span>
                                     @endif
@@ -586,149 +587,166 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
-                                    Course Fee</label>
+                                    Course Fee*</label>
                                 <div class="col-sm-9">
                                     <input type="number" value="{{ old('course_fee') }}" name="course_fee"
-                                        class="form-control" id="Features " placeholder="Course Fee">
+                                        class="form-control" placeholder="Course Fee" required>
                                     @if ($errors->has('course_fee'))
                                         <span class="text-danger">{{ $errors->first('course_fee') }}</span>
                                     @endif
                                 </div>
                             </div>
+
+
                             <div class="row mb-3">
                                 <label for="Features " class="col-sm-3 col-form-label">
-                                    Number Of Subjects</label>
+                                    Number Of Subjects*</label>
                                 <div class="col-sm-9">
+
+                                    <div class="alert alert-danger" id="passwordsNoMatchRegister" style="display:none;">
+                                        <strong>Error!</strong>You can't put more than 50!
+                                    </div>
+
                                     <input type="number" value="{{ old('number_of_subjects') }}"
-                                        name="number_of_subjects" class="form-control" id="Features "
-                                        placeholder="Enter Number Of Subjects">
+                                        name="number_of_subjects" class="form-control" id="mySubjects"
+                                        placeholder="Enter Number Of Subjects" min="1" required>
+
+                                    <div id="myDiv" class="m-3">
+                                        <div class="myclass">
+
+                                        </div>
+                                    </div>
+
                                     @if ($errors->has('number_of_subjects'))
                                         <span class="text-danger">{{ $errors->first('number_of_subjects') }}</span>
                                     @endif
+                                    </>
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">
-                                    Discount fee</label>
-                                <div class="col-sm-9">
-                                    <input type="number" value="{{ old('discount_fee') }}" name="discount_fee"
-                                        class="form-control" id="Features " placeholder="Discount fee">
-                                    @if ($errors->has('discount_fee'))
-                                        <span class="text-danger">{{ $errors->first('discount_fee') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">
-                                    Registation Fee</label>
-                                <div class="col-sm-9">
-                                    <input type="number" value="{{ old('registation_fee') }}" name="registation_fee"
-                                        class="form-control" id="Features " placeholder="Registation Fee">
-                                    @if ($errors->has('registation_fee'))
-                                        <span class="text-danger">{{ $errors->first('registation_fee') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">
-                                    Exam fee</label>
-                                <div class="col-sm-9">
-                                    <input type="number" value="{{ old('exam_fee') }}" name="exam_fee"
-                                        class="form-control" id="Features " placeholder="Exam fee">
-                                    @if ($errors->has('exam_fee'))
-                                        <span class="text-danger">{{ $errors->first('exam_fee') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">
-                                    Commission</label>
-                                <div class="col-sm-9">
-                                    <input type="number" value="{{ old('commission') }}" name="commission"
-                                        class="form-control" id="Features " placeholder="Commission">
-                                    @if ($errors->has('commission'))
-                                        <span class="text-danger">{{ $errors->first('commission') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">
-                                    Ratings</label>
-                                <div class="col-sm-9">
-                                    <input type="number" value="{{ old('ratings') }}" name="ratings"
-                                        class="form-control" id="Features " placeholder="Ratings">
-                                    @if ($errors->has('ratings'))
-                                        <span class="text-danger">{{ $errors->first('ratings') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">
-                                    Reviews</label>
-                                <div class="col-sm-9">
-                                    <input type="text" value="{{ old('reviews') }}" name="reviews"
-                                        class="form-control" id="Features " placeholder="Reviews">
-                                    @if ($errors->has('reviews'))
-                                        <span class="text-danger">{{ $errors->first('reviews') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">
-                                    Video Link</label>
-                                <div class="col-sm-9">
-                                    <input type="url" value="{{ old('video_link') }}" name="video_link"
-                                        class="form-control" id="Features " placeholder="Video Link">
-                                    @if ($errors->has('video_link'))
-                                        <span class="text-danger">{{ $errors->first('video_link') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="curriculam " class="col-sm-3 col-form-label">Curriculam</label>
-                                <div class="col-sm-9">
-                                    <textarea name="curriculam" id="" cols="20" rows="5"
-                                        class="form-control"placeholder="Curriculam" style="resize: none;">{{ old('curriculam') }}</textarea>
-                                    @if ($errors->has('curriculam'))
-                                        <span class="text-danger">{{ $errors->first('curriculam') }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">Publish</label>
-                                <div class="col-sm-9">
-                                    <label class="form-check-label" for="debit">Yes</label>
-                                    <input id="debit" name="publish" type="radio" value="0"
-                                        @if (old('publish')) checked @endif class="form-check-input">
-                                    <label class="form-check-label" for="debit">No</label>
-                                    <input id="debit" name="publish" type="radio" value="1"
-                                        @if (!old('publish')) checked @endif class="form-check-input">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="Features " class="col-sm-3 col-form-label">Status</label>
-                                <div class="col-sm-9">
 
-                                    <label class="form-check-label" for="Status">Active</label>
-                                    <input id="Status" name="status" type="radio" value="0"
-                                        @if (old('status')) checked @endif class="form-check-input">
 
-                                    <label class="form-check-label" for="Status">Inavtive</label>
-                                    <input id="Status" name="status" type="radio" value="1"
-                                        @if (!old('status')) checked @endif class="form-check-input">
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">
+                                        Discount fee*</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" value="{{ old('discount_fee') }}" name="discount_fee"
+                                            class="form-control" placeholder="Discount fee" required>
+                                        @if ($errors->has('discount_fee'))
+                                            <span class="text-danger">{{ $errors->first('discount_fee') }}</span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-3 "></div>
-                                <div class="col-4 ">
-                                    <button type="reset" class="btn btn-outline-danger">Reset</button>
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">
+                                        Registation Fee*</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" value="{{ old('registation_fee') }}"
+                                            name="registation_fee" class="form-control" placeholder="Registation Fee"
+                                            required>
+                                        @if ($errors->has('registation_fee'))
+                                            <span class="text-danger">{{ $errors->first('registation_fee') }}</span>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="col-4">
-                                    {{-- <button type="submit" class="btn btn-outline-success">Save</button> --}}
-                                    <button class="btn btn-success btn-submit">Submit</button>
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">
+                                        Exam fee*</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" value="{{ old('exam_fee') }}" name="exam_fee"
+                                            class="form-control" placeholder="Exam fee" required>
+                                        @if ($errors->has('exam_fee'))
+                                            <span class="text-danger">{{ $errors->first('exam_fee') }}</span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">
+                                        Commission*</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" value="{{ old('commission') }}" name="commission"
+                                            class="form-control" placeholder="Commission" required>
+                                        @if ($errors->has('commission'))
+                                            <span class="text-danger">{{ $errors->first('commission') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">
+                                        Ratings*</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" value="{{ old('ratings') }}" name="ratings"
+                                            class="form-control" placeholder="Ratings" required>
+                                        @if ($errors->has('ratings'))
+                                            <span class="text-danger">{{ $errors->first('ratings') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">
+                                        Reviews*</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" value="{{ old('reviews') }}" name="reviews"
+                                            class="form-control" placeholder="Reviews" required>
+                                        @if ($errors->has('reviews'))
+                                            <span class="text-danger">{{ $errors->first('reviews') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">
+                                        Video Link</label>
+                                    <div class="col-sm-9">
+                                        <input type="url" value="{{ old('video_link') }}" name="video_link"
+                                            class="form-control" placeholder="Video Link">
+                                        @if ($errors->has('video_link'))
+                                            <span class="text-danger">{{ $errors->first('video_link') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="curriculam " class="col-sm-3 col-form-label">Curriculam*</label>
+                                    <div class="col-sm-9">
+                                        <textarea name="curriculam" id="" cols="20" rows="5"
+                                            class="form-control"placeholder="Curriculam" style="resize: none;" required>{{ old('curriculam') }}</textarea>
+                                        @if ($errors->has('curriculam'))
+                                            <span class="text-danger">{{ $errors->first('curriculam') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">Publish</label>
+                                    <div class="col-sm-9">
+                                        <label class="form-check-label" for="debit">Yes</label>
+                                        <input id="debit" name="publish" type="radio" value="0"
+                                            @if (old('publish')) checked @endif class="form-check-input">
+                                        <label class="form-check-label" for="debit">No</label>
+                                        <input id="debit" name="publish" type="radio" value="1"
+                                            @if (!old('publish')) checked @endif class="form-check-input">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="Features " class="col-sm-3 col-form-label">Status</label>
+                                    <div class="col-sm-9">
+
+                                        <label class="form-check-label" for="Status">Active</label>
+                                        <input id="Status" name="status" type="radio" value="0"
+                                            @if (old('status')) checked @endif class="form-check-input">
+
+                                        <label class="form-check-label" for="Status">Inavtive</label>
+                                        <input id="Status" name="status" type="radio" value="1"
+                                            @if (!old('status')) checked @endif class="form-check-input">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 "></div>
+                                    <div class="col-4 ">
+                                        <button type="reset" class="btn btn-outline-danger">Reset</button>
+                                    </div>
+                                    <div class="col-4">
+                                        {{-- <button type="submit" class="btn btn-outline-success">Save</button> --}}
+                                        <button class="btn btn-success btn-submit">Submit</button>
+                                    </div>
+                                </div>
 
 
 
@@ -739,7 +757,6 @@
             </div>
         </div>
         <!--end page wrapper -->
-
 
         <!--start overlay-->
         <div class="overlay toggle-icon"></div>
@@ -774,6 +791,97 @@
                 //console.log(num);
                 $('.input').val(num);
             });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // var subjects = @json($member);
+            // var tt = @json($member);
+            // console.log(tt);
+            var subject = @json($member);
+            // console.log(subject);
+
+            $("#mySubjects").keyup(function(e) {
+                e.preventDefault();
+                let inpValue = $(this).val();
+
+                if (inpValue > 50) {
+                    // alert('Your subject not available');
+
+                    $('#passwordsNoMatchRegister').fadeIn(1000);
+                    setTimeout(function() {
+                        $('#passwordsNoMatchRegister').fadeOut(2000);
+                    }, 5000);
+
+                    location.reload();
+                }
+
+                var inValue = $("#mySubjects").val();
+                var html_text = "";
+                for (var i = 0; i < inValue; i++) {
+
+                    html_text += `
+                        <div class="d-flex p-4 bg-secondary text-white opacity-55" id="inpValueTest">
+                            <div class="form-check p-2">
+                            <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>
+                            </div>
+                            <div class="p-2">
+                                <select class="form-select myclass">
+
+                                </select>
+                            </div>
+                            <div class="form-group p-2">
+                                <label for="usr">Marks:</label>
+                                <input type="text" name="marks[]" class="emarks">
+                            </div>
+                        </div>
+                        `;
+
+                    // }
+                }
+                $('#myDiv').html(html_text);
+
+                var options = "";
+                for (var i = 0; i < subject.length; i++) {
+                    // const element = subject[i];
+                    // const ttt = `<option value = "` + subject[i].id + `">` + subject[i].subject + `</option>`;
+                    // console.log(ttt);
+                    //$('.tapas').html(mydata);
+
+                    options += '<option value="' + subject[i]['id'] + '">' + subject[i]['subject'] +
+                        '</option>';
+
+                }
+                console.log(options);
+                $(".myclass").html(options);
+
+
+
+                // let inpValue = $(this).val();
+
+                // if (inpValue > 50) {
+                //     // alert('Your subject not available');
+
+                //     $('#passwordsNoMatchRegister').fadeIn(1000);
+                //     setTimeout(function() {
+                //         $('#passwordsNoMatchRegister').fadeOut(2000);
+                //     }, 5000);
+
+                //     // location.reload();
+                // }
+
+
+
+
+            });
+
+
+            // $("#emarks").keyup(function(e) {
+            //     e.preventDefault();
+            //     // console.log($(this).val());
+            // });
+
         });
     </script>
 @endpush

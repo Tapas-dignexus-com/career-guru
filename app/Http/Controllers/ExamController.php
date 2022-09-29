@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\File;
 use App\Models\ExamCategory;
 use App\Models\Exam;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,7 +43,12 @@ class ExamController extends Controller
     public function createExam()
     {
         $exam_category = ExamCategory::all();
-        return view('exam.add_new_course', compact('exam_category'));
+        $subject = Subject::all();
+
+        $member = json_decode($subject);
+        //die($member);
+
+        return view('exam.add_new_course', compact('exam_category', 'member'));
     }
 
     public function addExam(Request $request)
