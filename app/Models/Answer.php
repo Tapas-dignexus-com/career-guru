@@ -10,12 +10,6 @@ class Answer extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // // turn off both
-    // public $timestamps = false;
-
-    // // turn off only updated_at
-    // const DELETED_AT = false;
-
     protected $fillable = [
         'question_id',
         'answer',

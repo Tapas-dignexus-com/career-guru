@@ -37,8 +37,16 @@ class Exam extends Model
         'status',
     ];
 
+    // protected $fillable_relations = ['subject_marks'];
+    // protected $with = ['subject_marks'];
+
     public function examCategory()
     {
         return $this->hasMany(ExamCategory::class, 'id', 'catagory_id');
+    }
+
+    function SubjectMark()
+    {
+        return $this->hasMany(SubjectMark::class, 'exam_id');
     }
 }

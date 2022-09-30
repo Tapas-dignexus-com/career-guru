@@ -607,7 +607,7 @@
                                             <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
                                         </div>
                                         <div class="col-2 mt-3">
-                                            <input type="file" name="ans_img1" class="form-control " id="">
+                                            <input type="file" name="ans_img" class="form-control " id="">
                                         </div>
                                         <div class="col-3">
                                             <div>
@@ -624,7 +624,7 @@
                                             <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
                                         </div>
                                         <div class="col-2 mt-3">
-                                            <input type="file" name="ans_img2" class="form-control w-100"
+                                            <input type="file" name="ans_img" class="form-control w-100"
                                                 id="">
                                         </div>
                                         <div class="col-3">
@@ -641,7 +641,7 @@
                                             <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
                                         </div>
                                         <div class="col-2 mt-3">
-                                            <input type="file" name="ans_img3" class="form-control " id="">
+                                            <input type="file" name="ans_img" class="form-control " id="">
                                         </div>
                                         <div class="col-3">
                                             <div>
@@ -657,7 +657,7 @@
                                             <textarea class="form-control" name="ans[]" id="" rows="3" placeholder="" style="resize: none;"></textarea>
                                         </div>
                                         <div class="col-2 mt-3">
-                                            <input type="file" name="ans_img4" class="form-control " id="">
+                                            <input type="file" name="ans_img" class="form-control " id="">
                                         </div>
                                         <div class="col-3">
                                             <div>

@@ -7,6 +7,7 @@ use Illuminate\Support\File;
 use App\Models\ExamCategory;
 use App\Models\Exam;
 use App\Models\Subject;
+use App\Models\SubjectMark;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -83,20 +84,34 @@ class ExamController extends Controller
         );
 
 
-        $path = $request->file('upload_syllabus')->store('public/files');
+        // $path = $request->file('upload_syllabus')->store('public/files');
 
-        $exam = new Exam;
+        $exam = new Exam();
         $exam->exam_name = $request->exam_name;
         $exam->description = $request->description;
         $exam->features = $request->features;
         $exam->course_code = $request->course_code;
         $exam->catagory_id = $request->catagory_id;
         $exam->duration = $request->duration;
-        $exam->upload_syllabus = $path;
+        // $exam->upload_syllabus = $path;
+
+        if ($request->hasfile('upload_syllabus')) {
+            $file = $request->file('upload_syllabus');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/upload_syllabus/', $filename);
+            $exam->upload_syllabus = $filename;
+        } else {
+            $exam->upload_syllabus = '';
+        }
+
+
         $exam->marks_per_question = $request->marks_per_question;
         $exam->negative_marking_per_question = $request->negative_marking_per_question;
+
         $exam->number_of_questions = $request->number_of_questions;
         $exam->course_fee = $request->course_fee;
+
         $exam->number_of_subjects = $request->number_of_subjects;
         $exam->discount_fee = $request->discount_fee;
         $exam->exam_fee = $request->exam_fee;
@@ -110,6 +125,19 @@ class ExamController extends Controller
         $exam->status =  $request->status;
 
         $exam->save();
+
+        $examId = $exam->id;
+
+        foreach ($request->all_subjects as $key => $all_sub) {
+            $subject_with_marks = new SubjectMark();
+            $subject_with_marks->exam_id = $examId;
+            $subject_with_marks->all_subjects = $all_sub;
+            $subject_with_marks->subject_type = $request->subject_type[$key];
+            $subject_with_marks->marks = $request->marks[$key];
+
+            $subject_with_marks->save();
+        }
+
 
         return redirect()->route('addExam')
             ->with('success', 'Exam created successfully.');

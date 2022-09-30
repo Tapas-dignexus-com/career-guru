@@ -21,43 +21,51 @@ class QnaController extends Controller
 
     public function addQna(Request $request)
     {
-        if ($request->file('question_image') == null) {
-            $qpath = "";
-        } else {
-            $qpath = $request->file('question_image')->store('public/exam_image');
-        }
-
-        if ($request->file('ans_logic_image') == null) {
-            $apath = "";
-        } else {
-            $apath = $request->file('ans_logic_image')->store('public/exam_image');
-        }
 
         try {
             DB::beginTransaction();
-            $questionId = Question::insertGetId([
-                'exam_id' => $request->exam_id,
-                'exam_code' => $request->exam_code,
-                'date' => $request->date,
-                'topic_id' => $request->topic_id,
-                'subject' => $request->subject,
-                'level' => $request->level,
-                'question_image' => $qpath,
-                'number_per_question' => $request->number_per_question,
-                'negative_marking' => $request->negative_marking,
-                'question' => $request->question,
-                'answer_logic' => $request->answer_logic,
-                'ans_logic_image' => $apath
-            ]);
-            // dd($questionId);
-            //dd($request->file('ans_img'));
+
+            $qst = new Question();
+            $qst->exam_id = $request->exam_id;
+            $qst->exam_code = $request->exam_code;
+            $qst->date = $request->date;
+            $qst->topic_id = $request->topic_id;
+            $qst->subject = $request->subject;
+            $qst->level = $request->level;
+
+            // $qst->question_image = $request->question_image;
+            if ($request->hasfile('question_image')) {
+                $file = $request->file('question_image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/question_image/', $filename);
+                $qst->question_image = $filename;
+            } else {
+                $qst->question_image = '';
+            }
+
+            $qst->number_per_question = $request->number_per_question;
+            $qst->negative_marking = $request->negative_marking;
+
+            $qst->question = $request->question;
+            $qst->answer_logic = $request->answer_logic;
+
+            // $qst->ans_logic_image = $request->ans_logic_image;
+            if ($request->hasfile('ans_logic_image')) {
+                $file = $request->file('ans_logic_image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/ans_logic_image/', $filename);
+                $qst->ans_logic_image = $filename;
+            } else {
+                $qst->ans_logic_image = '';
+            }
+
+            $qst->save();
+
+            $questionId = $qst->id;
+
             foreach ($request->ans as $key => $answer) {
-                // $is_correct = '';
-                // if ($request->is_correct == true) {
-                //     $is_correct = $request->is_correct;
-                // } else {
-                //     $is_correct = '';
-                // }
 
                 if (is_null($request->is_correct)) {
                     return back()->with('warning', 'No option added!');
@@ -66,44 +74,49 @@ class QnaController extends Controller
                 $ans = new Answer;
                 $ans->question_id = $questionId;
                 $ans->answer = $answer;
+                // $ans->ans_image = $request->ans_img;
+                if ($request->hasfile('ans_img')) {
+                    $file = $request->file('ans_img');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . '.' . $extension;
+                    $file->move('uploads/ans_img/', $filename);
+                    $ans->ans_image[$key] = $filename;
+                } else {
+                    $ans->ans_image[$key] = '';
+                }
 
-                // if ($request->file('ans_img') == null) {
-                //     $path = "";
+                // if ($request->hasfile('ans_img2')) {
+                //     $file = $request->file('ans_img2');
+                //     $extension = $file->getClientOriginalExtension();
+                //     $filename = time() . '.' . $extension;
+                //     $file->move('uploads/ans_img2/', $filename);
+                //     $ans->ans_image = $filename;
                 // } else {
-                //     foreach ($request->file('ans_img') as $key => $imagefile) {
-                //         // print_r($key);
-                //         $path = $imagefile->store('public/exam_image');
-                //         $ans->ans_image = $path;
-                //     }
+                //     $ans->ans_image = '';
                 // }
 
+                // if ($request->hasfile('ans_img3')) {
+                //     $file = $request->file('ans_img3');
+                //     $extension = $file->getClientOriginalExtension();
+                //     $filename = time() . '.' . $extension;
+                //     $file->move('uploads/ans_img3/', $filename);
+                //     $ans->ans_image = $filename;
+                // } else {
+                //     $ans->ans_image = '';
+                // }
 
-                if ($request->file('ans_img1') == null) {
-                    $path1 = "";
-                } else {
-                    $path1 = $request->file('ans_img1')->store('public/exam_image');
-                    $ans->ans_image = $path1;
-                }
-                if ($request->file('ans_img2') == null) {
-                    $path2 = "";
-                } else {
-                    $path2 = $request->file('ans_img2')->store('public/exam_image');
-                    $ans->ans_image = $path2;
-                }
-                if ($request->file('ans_img3') == null) {
-                    $path3 = "";
-                } else {
-                    $path3 = $request->file('ans_img3')->store('public/exam_image');
-                    $ans->ans_image = $path3;
-                }
-                if ($request->file('ans_img4') == null) {
-                    $path4 = "";
-                } else {
-                    $path4 = $request->file('ans_img4')->store('public/exam_image');
-                    $ans->ans_image = $path4;
-                }
+                // if ($request->hasfile('ans_img4')) {
+                //     $file = $request->file('ans_img4');
+                //     $extension = $file->getClientOriginalExtension();
+                //     $filename = time() . '.' . $extension;
+                //     $file->move('uploads/ans_img4/', $filename);
+                //     $ans->ans_image = $filename;
+                // } else {
+                //     $ans->ans_image = '';
+                // }
 
                 $ans->is_correct = $request->is_correct;
+
                 $ans->save();
             }
             DB::commit();
