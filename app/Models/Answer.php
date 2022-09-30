@@ -13,9 +13,13 @@ class Answer extends Model
     protected $fillable = [
         'question_id',
         'answer',
-        'ans_image',
+        // 'ans_image',
         'is_correct'
     ];
+
+    // protected $casts = [
+    //     'ans_image' => array()
+    // ];
 
     public function question()
     {

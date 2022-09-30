@@ -95,4 +95,5 @@ Route::delete('/delete-qna', [QnaController::class, 'deleteQna'])->name('deleteQ
 
 
 
+
 Route::get('/view-subject-list', [AdminController::class, 'listSubject']);

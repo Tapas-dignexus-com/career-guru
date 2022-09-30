@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Add Question'))
+@section('title', __('Edit Question'))
 @push('styles')
     <!--plugins-->
     <link href="{{ asset('assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
@@ -442,6 +442,7 @@
         </header>
         <!--end header -->
 
+
         <!--start page wrapper -->
         <div class="page-wrapper">
             <div class="row">
@@ -459,7 +460,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('addQna') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('updateQna') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card border-top border-0 border-4 border-info">
                             <div class="card-body">
@@ -682,12 +683,12 @@
 
 
                                     <div class="d-flex justify-content-center gap-5">
-                                        <button type="reset" class="btn btn-outline-danger"><i
+                                        {{-- <button type="reset" class="btn btn-outline-danger"><i
                                                 class="fadeIn animated bx bx-revision"></i>Reset</button>
                                         <button type="submit" class="btn btn-outline-info"><i
-                                                class="fadeIn animated bx bx-right-indent"></i>Preview</button>
+                                                class="fadeIn animated bx bx-right-indent"></i>Preview</button> --}}
                                         <button type="submit" class="btn btn-outline-success"><i
-                                                class="fadeIn animated bx bx-skip-next"></i>Save and Next</button>
+                                                class="fadeIn animated bx bx-skip-next"></i>Edit</button>
                                     </div>
 
                                 </div>

@@ -21,7 +21,6 @@ class QnaController extends Controller
 
     public function addQna(Request $request)
     {
-
         try {
             DB::beginTransaction();
 
@@ -74,23 +73,29 @@ class QnaController extends Controller
                 $ans = new Answer;
                 $ans->question_id = $questionId;
                 $ans->answer = $answer;
-                // $ans->ans_image = $request->ans_img;
+                // dd($ans->ans_image);
+
+                // $ans->ans_image = $request->file('ans_img')[$key];
                 if ($request->hasfile('ans_img')) {
-                    $file = $request->file('ans_img');
-                    $extension = $file->getClientOriginalExtension();
-                    $filename = time() . '.' . $extension;
-                    $file->move('uploads/ans_img/', $filename);
-                    $ans->ans_image[$key] = $filename;
+                    foreach ($request->file('ans_img') as $image) {
+                        // dd($image);
+                        //$file1 = $request->file('ans_img');
+                        $extension = $image->getClientOriginalExtension();
+                        $filename = time() . '.' . $extension;
+                        $image->move('uploads/ans_img/', $filename);
+                        $ans->ans_image = $filename[$key];
+                        $ans->save();
+                    }
                 } else {
-                    $ans->ans_image[$key] = '';
+                    $ans->ans_image = '';
                 }
 
                 // if ($request->hasfile('ans_img2')) {
                 //     $file = $request->file('ans_img2');
                 //     $extension = $file->getClientOriginalExtension();
-                //     $filename = time() . '.' . $extension;
-                //     $file->move('uploads/ans_img2/', $filename);
-                //     $ans->ans_image = $filename;
+                //     $filename2 = time() . '.' . $extension;
+                //     $file->move('uploads/ans_img2/', $filename2);
+                //     $ans->ans_image = $filename2;
                 // } else {
                 //     $ans->ans_image = '';
                 // }
@@ -98,9 +103,9 @@ class QnaController extends Controller
                 // if ($request->hasfile('ans_img3')) {
                 //     $file = $request->file('ans_img3');
                 //     $extension = $file->getClientOriginalExtension();
-                //     $filename = time() . '.' . $extension;
-                //     $file->move('uploads/ans_img3/', $filename);
-                //     $ans->ans_image = $filename;
+                //     $filename3 = time() . '.' . $extension;
+                //     $file->move('uploads/ans_img3/', $filename3);
+                //     $ans->ans_image = $filename3;
                 // } else {
                 //     $ans->ans_image = '';
                 // }
@@ -108,13 +113,18 @@ class QnaController extends Controller
                 // if ($request->hasfile('ans_img4')) {
                 //     $file = $request->file('ans_img4');
                 //     $extension = $file->getClientOriginalExtension();
-                //     $filename = time() . '.' . $extension;
-                //     $file->move('uploads/ans_img4/', $filename);
-                //     $ans->ans_image = $filename;
+                //     $filename4 = time() . '.' . $extension;
+                //     $file->move('uploads/ans_img4/', $filename4);
+                //     $ans->ans_image = $filename4;
                 // } else {
                 //     $ans->ans_image = '';
                 // }
 
+                // for ($i = 0; $i < sizeof($request->is_correct); $i++) {
+                //     // print_r($request->is_correct[$i]);
+                //     $ans->is_correct = $request->is_correct[$i];
+                // }
+                // die;
                 $ans->is_correct = $request->is_correct;
 
                 $ans->save();
@@ -136,6 +146,18 @@ class QnaController extends Controller
 
     public function editQna($id)
     {
-        dd($id);
+        $questions = Question::find($id);
+
+        $exam = Exam::where('id', $questions->exam_id)->get();
+
+        $topic = Topic::where('id', $questions->topic_id)->with('subjects')->get();
+
+        $answer = Answer::where('question_id', $questions->id)->get();
+
+        return view('question.edit-question', compact('questions', 'exam', 'topic', 'answer'));
+    }
+
+    public function updateQna(Request $request, $id)
+    {
     }
 }
